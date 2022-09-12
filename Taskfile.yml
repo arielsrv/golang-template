@@ -26,6 +26,9 @@ tasks:
       - mkdir -p $OUTPUT_FOLDER
       - go build -v cmd/main.go
       - mv main $OUTPUT_FOLDER/$EXECUTABLE
+  default:
+     cmds:
+       - task: build
   run:
     cmds:
       - ./$OUTPUT_FOLDER/$EXECUTABLE
