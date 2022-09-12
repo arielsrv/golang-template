@@ -30,16 +30,30 @@ func main() {
 		NewPingHandler().
 		Ping())
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
+	port, host := getAddress()
 
+	log.Printf("%s:%s", host, port)
+	log.Fatalln(app.Listen(fmt.Sprintf("%s:%s", host, port)))
+}
+
+func getAddress() (string, string) {
+	port := getPort()
+	host := getHost()
+	return port, host
+}
+
+func getHost() string {
 	host := os.Getenv("HOST")
 	if host == "" {
 		host = "0.0.0.0"
 	}
+	return host
+}
 
-	log.Printf("%s:%s", host, port)
-	log.Fatalln(app.Listen(fmt.Sprintf("%s:%s", host, port)))
+func getPort() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	return port
 }
