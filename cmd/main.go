@@ -35,5 +35,11 @@ func main() {
 		port = "8080"
 	}
 
-	log.Fatalln(app.Listen(fmt.Sprintf(":%s", port)))
+	host := os.Getenv("HOST")
+	if host == "" {
+		host = "0.0.0.0"
+	}
+
+	log.Printf("%s:%s", host, port)
+	log.Fatalln(app.Listen(fmt.Sprintf("%s:%s", host, port)))
 }
