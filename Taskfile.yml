@@ -3,6 +3,7 @@ version: '3'
 env:
   OUTPUT_FOLDER: bin
   EXECUTABLE: app
+  COVERAGE_FOLDER: coverage
 
 tasks:
   lint:
@@ -11,9 +12,16 @@ tasks:
   test:
     cmds:
       - go test ./...
+  coverage:
+    cmds:
+      - mkdir -p $COVERAGE_FOLDER
+      - go test -v ./... -covermode=count -coverpkg=./... -coverprofile coverage/coverage.out
+      - go tool cover -html coverage/coverage.out -o coverage/coverage.html
+      - go tool cover -func=coverage/coverage.out
   clean:
     cmds:
       - rm -rf bin
+      - rm -rf coverage
   download:
     cmds:
       - go mod tidy
@@ -23,12 +31,13 @@ tasks:
       - task: download
       - task: lint
       - task: test
+      - task: coverage
       - mkdir -p $OUTPUT_FOLDER
       - go build -v cmd/main.go
       - mv main $OUTPUT_FOLDER/$EXECUTABLE
   default:
-     cmds:
-       - task: build
+    cmds:
+      - task: build
   run:
     cmds:
       - ./$OUTPUT_FOLDER/$EXECUTABLE
