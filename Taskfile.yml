@@ -14,9 +14,13 @@ tasks:
   clean:
     cmds:
       - rm -rf bin
+  download:
+    cmds:
+      - go mod tidy
   build:
     cmds:
       - task: clean
+      - task: download
       - task: lint
       - task: test
       - mkdir -p $OUTPUT_FOLDER
