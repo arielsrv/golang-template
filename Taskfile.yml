@@ -1,0 +1,27 @@
+version: '3'
+
+env:
+  OUTPUT_FOLDER: bin
+  EXECUTABLE: app
+
+tasks:
+  lint:
+    cmds:
+      - golangci-lint run
+  test:
+    cmds:
+      - go test ./...
+  clean:
+    cmds:
+      - rm -rf bin
+  build:
+    cmds:
+      - task: clean
+      - task: lint
+      - task: test
+      - mkdir -p $OUTPUT_FOLDER
+      - go build -v cmd/main.go
+      - mv main $OUTPUT_FOLDER/$EXECUTABLE
+  run:
+    cmds:
+      - ./$OUTPUT_FOLDER/$EXECUTABLE
