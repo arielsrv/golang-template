@@ -32,6 +32,7 @@ func (suite *PingControllerSuite) TestPing() {
 	suite.NotNil(response)
 	suite.NoError(err)
 
+	defer response.Body.Close()
 	body, err := io.ReadAll(response.Body)
 	suite.NotNil(body)
 	suite.NoError(err)
