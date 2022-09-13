@@ -6,7 +6,8 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
-	"github.com/golang-template/internal/handlers"
+	"github.com/golang-template/internal/application"
+	"github.com/golang-template/internal/infrastructure/handlers"
 	"log"
 	"os"
 )
@@ -26,9 +27,9 @@ func main() {
 		Format: "${pid} ${locals:requestid} ${status} - ${method} ${path}\n",
 	}))
 
-	app.Add(fiber.MethodGet, "/ping", handlers.
-		NewPingHandler().
-		Ping())
+	pingService := application.NewPingService()
+	pingHandler := handlers.NewPingHandler(pingService)
+	app.Add(fiber.MethodGet, "/ping", pingHandler.Ping())
 
 	port, host := getAddress()
 	address := fmt.Sprintf("%s:%s", host, port)
