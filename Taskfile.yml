@@ -25,6 +25,9 @@ tasks:
   download:
     cmds:
       - go mod tidy
+  upgrade:
+    cmds:
+      - go-mod-upgrade
   build:
     cmds:
       - task: clean
