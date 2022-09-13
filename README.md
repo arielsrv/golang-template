@@ -32,3 +32,9 @@
 ## upgrade packages
 
 ./task download upgrade
+
+## curl
+```text
+$ curl 'http://localhost:8080/ping'
+pong
+```
