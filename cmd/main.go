@@ -31,9 +31,10 @@ func main() {
 		Ping())
 
 	port, host := getAddress()
+	address := fmt.Sprintf("%s:%s", host, port)
 
-	log.Printf("%s:%s", host, port)
-	log.Fatalln(app.Listen(fmt.Sprintf("%s:%s", host, port)))
+	log.Print(address)
+	log.Fatalln(app.Listen(address))
 }
 
 func getAddress() (string, string) {
