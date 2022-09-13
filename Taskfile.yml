@@ -7,28 +7,35 @@ env:
 
 tasks:
   lint:
+    desc: Use golangci-lint (.golangci.yml).
     cmds:
       - golangci-lint run
   test:
+    desc: Run test.
     cmds:
       - go test ./...
   coverage:
+    desc: Makes report coverage.
     cmds:
       - mkdir -p $COVERAGE_FOLDER
       - go test -v ./... -covermode=count -coverpkg=./... -coverprofile coverage/coverage.out
       - go tool cover -html coverage/coverage.out -o coverage/coverage.html
       - go tool cover -func=coverage/coverage.out
   clean:
+    desc: Clean binaries and reports.
     cmds:
       - rm -rf bin
       - rm -rf coverage
   download:
+    desc: Run go mod tidy.
     cmds:
       - go mod tidy
   upgrade:
+    desc: Check for latest direct dependencies.
     cmds:
       - go-mod-upgrade
   build:
+    desc: Build the go binary.
     cmds:
       - task: clean
       - task: download
@@ -39,8 +46,10 @@ tasks:
       - go build -v cmd/main.go
       - mv main $OUTPUT_FOLDER/$EXECUTABLE
   default:
+    desc: Run [build] task.
     cmds:
       - task: build
   run:
+    desc: Run main.go.
     cmds:
       - ./$OUTPUT_FOLDER/$EXECUTABLE
