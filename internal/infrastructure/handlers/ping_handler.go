@@ -15,7 +15,7 @@ func NewPingHandler(pingService application.IPingService) *PingHandler {
 	}
 }
 
-// Ping ListAccounts godoc
+// Ping godoc
 // @Summary		 Check if the instance is online
 // @Description  Ping
 // @Tags         Check
