@@ -34,8 +34,9 @@ func main() {
 	port, host := getAddress()
 	address := fmt.Sprintf("%s:%s", host, port)
 
-	log.Print(address)
-	log.Fatalln(app.Listen(address))
+	log.Printf("Listening on port %s", port)
+	log.Printf("Open http://%s:%s/ping in the browser", host, port)
+	log.Fatal(app.Listen(address))
 }
 
 func getAddress() (string, string) {
