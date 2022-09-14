@@ -34,6 +34,11 @@ tasks:
     desc: Check for latest direct dependencies.
     cmds:
       - go-mod-upgrade
+  swagger:
+    desc: Generate RESTful API documentation with Swagger.
+    dir: cmd
+    cmds:
+      - swag init -d ./,../internal/infrastructure/handlers
   build:
     desc: Build the go binary.
     cmds:
@@ -42,6 +47,7 @@ tasks:
       - task: lint
       - task: test
       - task: coverage
+      - task: swagger
       - mkdir -p $OUTPUT_FOLDER
       - go build -v cmd/main.go
       - mv main $OUTPUT_FOLDER/$EXECUTABLE

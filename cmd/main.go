@@ -6,12 +6,18 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
+	"github.com/gofiber/swagger"
+	_ "github.com/golang-template/cmd/docs"
 	"github.com/golang-template/internal/application"
 	"github.com/golang-template/internal/infrastructure/handlers"
 	"log"
 	"os"
 )
 
+// @title          Golang Template API
+// @version        1.0
+// @description    This is a sample swagger for Golang Template API
+// @BasePath       /
 func main() {
 	app := fiber.New(fiber.Config{
 		DisableStartupMessage: true,
@@ -29,7 +35,9 @@ func main() {
 
 	pingService := application.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
+
 	app.Add(fiber.MethodGet, "/ping", pingHandler.Ping())
+	app.Add(fiber.MethodGet, "/swagger/*", swagger.HandlerDefault)
 
 	port, host := getAddress()
 	address := fmt.Sprintf("%s:%s", host, port)

@@ -15,6 +15,14 @@ func NewPingHandler(pingService application.IPingService) *PingHandler {
 	}
 }
 
+// Ping ListAccounts godoc
+// @Summary		 Check if the instance is online
+// @Description  Ping
+// @Tags         Check
+// @Success      200
+// @Produce 	 plain
+// @Success      200              {string}  string    "pong"
+// @Router       /ping [get]
 func (handler PingHandler) Ping() fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		result := handler.pingService.Ping()
