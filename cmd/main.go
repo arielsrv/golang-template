@@ -31,32 +31,19 @@ func main() {
 	pingHandler := handlers.NewPingHandler(pingService)
 	app.Add(fiber.MethodGet, "/ping", pingHandler.Ping())
 
-	port, host := getAddress()
+	host := os.Getenv("HOST")
+	if host == "" {
+		host = "0.0.0.0"
+	}
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	address := fmt.Sprintf("%s:%s", host, port)
 
 	log.Printf("Listening on port %s", port)
 	log.Printf("Open http://%s:%s/ping in the browser", host, port)
 	log.Fatal(app.Listen(address))
-}
-
-func getAddress() (string, string) {
-	port := getPort()
-	host := getHost()
-	return port, host
-}
-
-func getHost() string {
-	host := os.Getenv("HOST")
-	if host == "" {
-		host = "0.0.0.0"
-	}
-	return host
-}
-
-func getPort() string {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	return port
 }
