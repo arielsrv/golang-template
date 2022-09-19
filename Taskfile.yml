@@ -37,14 +37,17 @@ tasks:
   build:
     desc: Build the go binary.
     cmds:
+      - mkdir -p $OUTPUT_FOLDER
+      - go build -v cmd/main.go
+      - mv main $OUTPUT_FOLDER/$EXECUTABLE
+  all:
+    desc: Build the go binary.
+    cmds:
       - task: clean
       - task: download
       - task: lint
       - task: test
-      - task: coverage
-      - mkdir -p $OUTPUT_FOLDER
-      - go build -v cmd/main.go
-      - mv main $OUTPUT_FOLDER/$EXECUTABLE
+      - task: build
   default:
     desc: Run [build] task.
     cmds:
