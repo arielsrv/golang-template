@@ -17,5 +17,5 @@
 
 .idea
 .vscode
-bin/
+build/
 coverage/
