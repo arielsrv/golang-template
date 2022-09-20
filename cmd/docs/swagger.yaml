@@ -1,0 +1,21 @@
+basePath: /
+info:
+  contact: {}
+  description: This is a sample swagger for Golang Template API
+  title: Golang Template API
+  version: "1.0"
+paths:
+  /ping:
+    get:
+      description: Ping
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: pong
+          schema:
+            type: string
+      summary: Check if the instance is online
+      tags:
+      - Check
+swagger: "2.0"

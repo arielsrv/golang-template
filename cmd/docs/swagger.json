@@ -1,0 +1,32 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample swagger for Golang Template API",
+        "title": "Golang Template API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/ping": {
+            "get": {
+                "description": "Ping",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "Check"
+                ],
+                "summary": "Check if the instance is online",
+                "responses": {
+                    "200": {
+                        "description": "pong",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

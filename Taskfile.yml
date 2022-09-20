@@ -34,6 +34,11 @@ tasks:
     desc: Check for latest direct dependencies.
     cmds:
       - go-mod-upgrade
+  swagger:
+    desc: Generate RESTful API documentation with Swagger.
+    dir: cmd
+    cmds:
+      - swag init -d ./,../internal/infrastructure/handlers
   build:
     desc: Build the go binary.
     cmds:
@@ -47,6 +52,8 @@ tasks:
       - task: download
       - task: lint
       - task: test
+      - task: coverage
+      - task: swagger
       - task: build
   default:
     desc: Run [build] task.
