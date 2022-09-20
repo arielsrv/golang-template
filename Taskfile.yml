@@ -54,9 +54,7 @@ tasks:
       - task: test
       - task: coverage
       - task: swagger
-      - mkdir -p $OUTPUT_FOLDER
-      - go build -v cmd/main.go
-      - mv main $OUTPUT_FOLDER/$EXECUTABLE
+      - task: build
   default:
     desc: Run [build] task.
     cmds:
