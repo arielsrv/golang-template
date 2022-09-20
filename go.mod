@@ -6,7 +6,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.37.1
 	github.com/gofiber/swagger v0.1.2
 	github.com/stretchr/testify v1.8.0
-	github.com/swaggo/swag v1.8.5
+	github.com/swaggo/swag v1.8.6
 )
 
 require (
