@@ -1,6 +1,6 @@
 basePath: /
 info:
-  contact: { }
+  contact: {}
   description: This is a sample swagger for Golang Template API
   title: Golang Template API
   version: "1.0"
@@ -9,7 +9,7 @@ paths:
     get:
       description: Ping
       produces:
-        - text/plain
+      - text/plain
       responses:
         "200":
           description: pong
@@ -17,5 +17,5 @@ paths:
             type: string
       summary: Check if the instance is online
       tags:
-        - Check
+      - Check
 swagger: "2.0"
