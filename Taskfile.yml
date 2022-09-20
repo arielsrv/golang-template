@@ -1,7 +1,7 @@
 version: '3'
 
 env:
-  OUTPUT_FOLDER: bin
+  OUTPUT_FOLDER: build
   EXECUTABLE: app
   COVERAGE_FOLDER: coverage
 
@@ -24,7 +24,7 @@ tasks:
   clean:
     desc: Clean binaries and reports.
     cmds:
-      - rm -rf bin
+      - rm -rf build
       - rm -rf coverage
   download:
     desc: Run go mod tidy.
@@ -40,6 +40,12 @@ tasks:
     cmds:
       - swag init -d ./,../internal/infrastructure/handlers
   build:
+    desc: Build the go binary.
+    cmds:
+      - mkdir -p $OUTPUT_FOLDER
+      - go build -v cmd/main.go
+      - mv main $OUTPUT_FOLDER/$EXECUTABLE
+  all:
     desc: Build the go binary.
     cmds:
       - task: clean

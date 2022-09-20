@@ -39,32 +39,19 @@ func main() {
 	app.Add(fiber.MethodGet, "/ping", pingHandler.Ping())
 	app.Add(fiber.MethodGet, "/swagger/*", swagger.HandlerDefault)
 
-	port, host := getAddress()
+	host := os.Getenv("HOST")
+	if host == "" {
+		host = "127.0.0.1"
+	}
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	address := fmt.Sprintf("%s:%s", host, port)
 
 	log.Printf("Listening on port %s", port)
 	log.Printf("Open http://%s:%s/ping in the browser", host, port)
 	log.Fatal(app.Listen(address))
-}
-
-func getAddress() (string, string) {
-	port := getPort()
-	host := getHost()
-	return port, host
-}
-
-func getHost() string {
-	host := os.Getenv("HOST")
-	if host == "" {
-		host = "127.0.0.1"
-	}
-	return host
-}
-
-func getPort() string {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	return port
 }
