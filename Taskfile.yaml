@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/taskfile.json
 version: '3'
 
 env:
@@ -41,6 +42,9 @@ tasks:
       - swag init -d ./,../internal/infrastructure/handlers
   build:
     desc: Build the go binary.
+    generates:
+      - app
+    interactive: true
     cmds:
       - mkdir -p $OUTPUT_FOLDER
       - go build -v cmd/main.go
@@ -62,4 +66,5 @@ tasks:
   run:
     desc: Run main.go.
     cmds:
+      - echo '{{OS}}'
       - ./$OUTPUT_FOLDER/$EXECUTABLE
