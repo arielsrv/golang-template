@@ -3,11 +3,17 @@
 ![Coverage](https://img.shields.io/badge/Coverage-100.0%25-brightgreen)
 [![Update release version.](https://github.com/tj-actions/coverage-badge-go/workflows/Update%20release%20version./badge.svg)](https://github.com/tj-actions/coverage-badge-go/actions?query=workflow%3A%22Update+release+version.%22)
 
-## Installation instructions
+## Developer tools
+[Golang Lint](https://golangci-lint.run/)
+[Golang Task](https://taskfile.dev/)
+[Golang Dependencies Update](https://github.com/oligot/go-mod-upgrade)
 
-* Install [Golang Lint](https://golangci-lint.run/)
-* Install [Golang Task](https://taskfile.dev/)
-* Install [Golang Dependencies Update](https://github.com/oligot/go-mod-upgrade) (optional)
+### macOs
+```shell
+$ brew install go-task/tap/go-task
+$ brew install golangci-lint
+$ go install github.com/oligot/go-mod-upgrade@latest
+```
 
 ## building
 
@@ -35,7 +41,7 @@
 
 ## curl
 ```text
-$ curl 'http://localhost:8080/ping'
+$ curl 'http://localhost:8080/ping' --verbose
 *   Trying 127.0.0.1:8080...
 * Connected to localhost (127.0.0.1) port 8080 (#0)
 > GET /ping HTTP/1.1
