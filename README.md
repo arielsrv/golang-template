@@ -4,11 +4,11 @@
 [![Update release version.](https://github.com/tj-actions/coverage-badge-go/workflows/Update%20release%20version./badge.svg)](https://github.com/tj-actions/coverage-badge-go/actions?query=workflow%3A%22Update+release+version.%22)
 
 ## Developer tools
-[Golang Lint](https://golangci-lint.run/)
-[Golang Task](https://taskfile.dev/)
-[Golang Dependencies Update](https://github.com/oligot/go-mod-upgrade)
+- [Golang Lint](https://golangci-lint.run/)
+- [Golang Task](https://taskfile.dev/)
+- [Golang Dependencies Update](https://github.com/oligot/go-mod-upgrade)
 
-### macOs
+### For macOs
 ```shell
 $ brew install go-task/tap/go-task
 $ brew install golangci-lint
@@ -39,7 +39,7 @@ $ go install github.com/oligot/go-mod-upgrade@latest
 
 ./task download upgrade
 
-## curl
+## example request
 ```text
 $ curl 'http://localhost:8080/ping' --verbose
 *   Trying 127.0.0.1:8080...
