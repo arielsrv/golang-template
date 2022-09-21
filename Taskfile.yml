@@ -50,7 +50,7 @@ tasks:
       - go build -v cmd/main.go
       - mv main $OUTPUT_FOLDER/$EXECUTABLE
   all:
-    desc: Build the go binary.
+    desc: Run relevant tasks.
     cmds:
       - task: clean
       - task: download
