@@ -35,22 +35,21 @@ type MockPingService struct {
 
 func (m *MockPingService) Ping() string {
 	args := m.Called()
-	result := args.Get(0)
-	return result.(string)
+	return args.Get(0).(string)
 }
 
 func (suite *PingControllerSuite) TestPing() {
 	suite.pingService.On("Ping").Return("pong")
 	request := httptest.NewRequest(http.MethodGet, "/ping", nil)
+
 	response, err := suite.app.Test(request)
+	suite.NoError(err)
 	suite.NotNil(response)
-	suite.NoError(err)
-
-	defer response.Body.Close()
-	body, err := io.ReadAll(response.Body)
-	suite.NotNil(body)
-	suite.NoError(err)
-
 	suite.Equal(http.StatusOK, response.StatusCode)
+
+	body, err := io.ReadAll(response.Body)
+	suite.NoError(err)
+	suite.NotNil(body)
+
 	suite.Equal("pong", string(body))
 }
