@@ -38,7 +38,7 @@ func (m *MockPingService) Ping() string {
 	return args.Get(0).(string)
 }
 
-func (suite *PingControllerSuite) TestPing() {
+func (suite *PingControllerSuite) TestPingHandler_Ping() {
 	suite.pingService.On("Ping").Return("pong")
 	request := httptest.NewRequest(http.MethodGet, "/ping", nil)
 
