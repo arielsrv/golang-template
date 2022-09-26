@@ -40,7 +40,7 @@ tasks:
     dir: cmd
     cmds:
       - go install github.com/swaggo/swag/cmd/swag@latest
-      - swag init -d ./,../internal/infrastructure/handlers,../internal/application
+      - swag init -d ./,../internal/infrastructure/handlers,../internal/application -o ../docs
   build:
     desc: Build the go binary.
     generates:

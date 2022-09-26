@@ -7,7 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/gofiber/swagger"
-	_ "github.com/golang-template/cmd/docs"
+	_ "github.com/golang-template/docs"
 	"github.com/golang-template/internal/application"
 	"github.com/golang-template/internal/infrastructure/handlers"
 	"log"
