@@ -39,7 +39,8 @@ tasks:
     desc: Generate RESTful API documentation with Swagger.
     dir: cmd
     cmds:
-      - swag init -d ./,../internal/infrastructure/handlers
+      - go install github.com/swaggo/swag/cmd/swag@latest
+      - swag init -d ./,../internal/infrastructure/handlers,../internal/application
   build:
     desc: Build the go binary.
     generates:
