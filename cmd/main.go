@@ -14,10 +14,10 @@ import (
 	"os"
 )
 
-// @title          Golang Template API
-// @version        1.0
-// @description    This is a sample swagger for Golang Template API
-// @BasePath       /
+// @title       Golang Template API
+// @version     1.0
+// @description This is a sample swagger for Golang Template API
+// @BasePath    /
 func main() {
 	app := fiber.New(fiber.Config{
 		DisableStartupMessage: true,

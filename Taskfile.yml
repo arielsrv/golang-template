@@ -41,6 +41,7 @@ tasks:
     cmds:
       - go install github.com/swaggo/swag/cmd/swag@latest
       - swag init -d ./,../internal/infrastructure/handlers,../internal/application -o ../docs
+      - swag fmt
   build:
     desc: Build the go binary.
     generates:
