@@ -1,17 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/gofiber/fiber/v2/middleware/requestid"
-	"github.com/gofiber/swagger"
 	_ "github.com/golang-template/docs"
 	"github.com/golang-template/internal/application"
+	"github.com/golang-template/internal/common/container"
 	"github.com/golang-template/internal/infrastructure/handlers"
-	"log"
-	"os"
+	"github.com/golang-template/internal/infrastructure/webserver"
+	"net/http"
 )
 
 // @title       Golang Template API
@@ -19,39 +14,17 @@ import (
 // @description This is a sample swagger for Golang Template API
 // @BasePath    /
 func main() {
-	app := fiber.New(fiber.Config{
-		DisableStartupMessage: true,
-	})
+	server := webserver.NewBuilder().
+		Build()
 
-	app.Use(recover.New(recover.Config{
-		EnableStackTrace: true,
-	}))
+	server.UseRecover()
+	server.UseRequestID()
+	server.UseLogger()
+	server.UseSwagger()
 
-	app.Use(requestid.New())
+	container.Register[application.IPingService](application.NewPingService())
+	pingHandler := container.RegisterHandler(new(handlers.PingHandler))
+	server.AddRoute(http.MethodGet, "/ping", pingHandler.Ping)
 
-	app.Use(logger.New(logger.Config{
-		Format: "${pid} ${locals:requestid} ${status} - ${method} ${path}\n",
-	}))
-
-	pingService := application.NewPingService()
-	pingHandler := handlers.NewPingHandler(pingService)
-
-	app.Add(fiber.MethodGet, "/ping", pingHandler.Ping())
-	app.Add(fiber.MethodGet, "/swagger/*", swagger.HandlerDefault)
-
-	host := os.Getenv("HOST")
-	if host == "" {
-		host = "127.0.0.1"
-	}
-
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
-	address := fmt.Sprintf("%s:%s", host, port)
-
-	log.Printf("Listening on port %s", port)
-	log.Printf("Open http://%s:%s/ping in the browser", host, port)
-	log.Fatal(app.Listen(address))
+	server.Start()
 }

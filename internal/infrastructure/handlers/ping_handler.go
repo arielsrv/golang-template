@@ -1,18 +1,11 @@
 package handlers
 
 import (
-	"github.com/gofiber/fiber/v2"
 	"github.com/golang-template/internal/application"
 )
 
 type PingHandler struct {
-	pingService application.IPingService
-}
-
-func NewPingHandler(pingService application.IPingService) *PingHandler {
-	return &PingHandler{
-		pingService: pingService,
-	}
+	PingService application.IPingService `inject:",type"`
 }
 
 // Ping godoc
@@ -23,9 +16,7 @@ func NewPingHandler(pingService application.IPingService) *PingHandler {
 // @Produce     plain
 // @Success     200 {string} string "pong"
 // @Router      /ping [get]
-func (handler PingHandler) Ping() fiber.Handler {
-	return func(ctx *fiber.Ctx) error {
-		result := handler.pingService.Ping()
-		return ctx.SendString(result)
-	}
+func (handler PingHandler) Ping() string {
+	return handler.PingService.
+		Ping()
 }

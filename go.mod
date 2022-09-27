@@ -3,6 +3,7 @@ module github.com/golang-template
 go 1.19
 
 require (
+	github.com/eddieowens/axon v0.7.0
 	github.com/gofiber/fiber/v2 v2.38.1
 	github.com/gofiber/swagger v0.1.2
 	github.com/stretchr/testify v1.8.0

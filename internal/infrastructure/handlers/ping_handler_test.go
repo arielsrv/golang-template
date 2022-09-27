@@ -2,7 +2,10 @@ package handlers_test
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-template/internal/application"
+	"github.com/golang-template/internal/common/container"
 	"github.com/golang-template/internal/infrastructure/handlers"
+	"github.com/golang-template/internal/infrastructure/webserver"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 	"io"
@@ -20,9 +23,10 @@ type PingControllerSuite struct {
 
 func (suite *PingControllerSuite) SetupTest() {
 	suite.pingService = new(MockPingService)
-	suite.pingHandler = handlers.NewPingHandler(suite.pingService)
+	container.Register[application.IPingService](suite.pingService)
+	suite.pingHandler = container.RegisterHandler(new(handlers.PingHandler))
 	suite.app = fiber.New()
-	suite.app.Get("/ping", suite.pingHandler.Ping())
+	suite.app.Get("/ping", webserver.SendString(suite.pingService.Ping))
 }
 
 func TestIntegration(t *testing.T) {
