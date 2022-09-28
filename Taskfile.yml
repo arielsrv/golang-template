@@ -6,8 +6,9 @@ env:
   BUILD_FOLDER: build
   EXECUTABLE: app
   COVERAGE_FOLDER: coverage
-  SWAGGER_COVERAGE:
-    ../internal/infrastructure/handlers,../internal/application
+  SWAGGER_COVERAGE: "\
+    ../internal/application,\
+    ../internal/infrastructure/handlers"
   SWAGGER_OUTPUT_FOLDER: docs
 
 tasks:
