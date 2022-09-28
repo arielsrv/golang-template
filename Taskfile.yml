@@ -2,10 +2,11 @@
 version: '3'
 
 env:
-  BUILD_FOLDER: build
-  EXE: app
-  COVERAGE_FOLDER: coverage
   ENTRY_POINT: cmd/main.go
+  BUILD_FOLDER: build
+  EXECUTABLE: app
+  COVERAGE_FOLDER: coverage
+
 
 tasks:
   lint:
@@ -44,14 +45,14 @@ tasks:
       - swag init -d ./,../internal/infrastructure/handlers,../internal/application -o ../docs
       - swag fmt
   build:
-    desc: Build the go EXE.
+    desc: Build the go EXECUTABLE.
     generates:
       - app
     interactive: true
     cmds:
       - mkdir -p $BUILD_FOLDER
       - go build -v $ENTRY_POINT
-      - mv main $BUILD_FOLDER/$EXE
+      - mv main $BUILD_FOLDER/$EXECUTABLE
   all:
     desc: Run relevant tasks.
     cmds:
@@ -70,4 +71,4 @@ tasks:
     desc: Run main.go.
     cmds:
       - echo '{{OS}}'
-      - ./$BUILD_FOLDER/$EXE
+      - ./$BUILD_FOLDER/$EXECUTABLE
