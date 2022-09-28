@@ -6,6 +6,8 @@ env:
   BUILD_FOLDER: build
   EXECUTABLE: app
   COVERAGE_FOLDER: coverage
+  COVERAGE_OUT_FILE: coverage.out
+  COVERAGE_HTML_FILE: coverage.html
   SWAGGER_COVERAGE: "\
     ../internal/application,\
     ../internal/infrastructure/handlers"
@@ -24,9 +26,9 @@ tasks:
     desc: Makes report coverage.
     cmds:
       - mkdir -p $COVERAGE_FOLDER
-      - go test -v ./... -covermode=count -coverpkg=./... -coverprofile $COVERAGE_FOLDER/coverage.out
-      - go tool cover -html $COVERAGE_FOLDER/coverage.out -o $COVERAGE_FOLDER/coverage.html
-      - go tool cover -func=$COVERAGE_FOLDER/coverage.out
+      - go test -v ./... -covermode=count -coverpkg=./... -coverprofile $COVERAGE_FOLDER/$COVERAGE_OUT_FILE
+      - go tool cover -html $COVERAGE_FOLDER/$COVERAGE_OUT_FILE -o $COVERAGE_FOLDER/$COVERAGE_HTML_FILE
+      - go tool cover -func=$COVERAGE_FOLDER/$COVERAGE_OUT_FILE
   clean:
     desc: Clean binaries and reports.
     cmds:
@@ -67,6 +69,10 @@ tasks:
       - task: swagger
       - task: build
   default:
+    desc: Run [build] task.
+    cmds:
+      - task: build
+  variables:
     desc: Run [build] task.
     cmds:
       - task: build
