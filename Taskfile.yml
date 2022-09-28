@@ -6,8 +6,8 @@ env:
   BUILD_FOLDER: build
   EXECUTABLE: app
   COVERAGE_FOLDER: coverage
-
-
+  SWAGGER_COVERAGE: ../internal/infrastructure/handlers,../internal/application
+  SWAGGER_OUTPUT_FOLDER: docs
 tasks:
   lint:
     desc: Use golangci-lint (.golangci.yml).
@@ -21,14 +21,14 @@ tasks:
     desc: Makes report coverage.
     cmds:
       - mkdir -p $COVERAGE_FOLDER
-      - go test -v ./... -covermode=count -coverpkg=./... -coverprofile coverage/coverage.out
-      - go tool cover -html coverage/coverage.out -o coverage/coverage.html
-      - go tool cover -func=coverage/coverage.out
+      - go test -v ./... -covermode=count -coverpkg=./... -coverprofile $COVERAGE_FOLDER/coverage.out
+      - go tool cover -html $COVERAGE_FOLDER/coverage.out -o $COVERAGE_FOLDER/coverage.html
+      - go tool cover -func=$COVERAGE_FOLDER/coverage.out
   clean:
     desc: Clean binaries and reports.
     cmds:
-      - rm -rf build
-      - rm -rf coverage
+      - rm -rf $BUILD_FOLDER
+      - rm -rf $COVERAGE_FOLDER
   download:
     desc: Run go mod tidy.
     cmds:
@@ -42,7 +42,7 @@ tasks:
     dir: cmd
     cmds:
       - go install github.com/swaggo/swag/cmd/swag@latest
-      - swag init -d ./,../internal/infrastructure/handlers,../internal/application -o ../docs
+      - swag init -d ./,$SWAGGER_COVERAGE -o ../$SWAGGER_OUTPUT_FOLDER
       - swag fmt
   build:
     desc: Build the go EXECUTABLE.
@@ -68,7 +68,7 @@ tasks:
     cmds:
       - task: build
   run:
-    desc: Run main.go.
+    desc: Run $ENTRY_POINT
     cmds:
       - echo '{{OS}}'
       - ./$BUILD_FOLDER/$EXECUTABLE
