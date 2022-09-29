@@ -7,10 +7,10 @@ type IPingService interface {
 type PingService struct {
 }
 
-func (service PingService) Ping() string {
-	return "pong"
+func NewPingService() *PingService {
+	return &PingService{}
 }
 
-func NewPingService() IPingService {
-	return &PingService{}
+func (service PingService) Ping() string {
+	return "pong"
 }

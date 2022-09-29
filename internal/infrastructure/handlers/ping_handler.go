@@ -5,6 +5,10 @@ import (
 	"github.com/golang-template/internal/application"
 )
 
+type IPingHandler interface {
+	Ping() fiber.Handler
+}
+
 type PingHandler struct {
 	pingService application.IPingService
 }

@@ -14,7 +14,7 @@ import (
 type PingControllerSuite struct {
 	suite.Suite
 	app         *fiber.App
-	pingHandler *handlers.PingHandler
+	pingHandler handlers.IPingHandler
 	pingService *MockPingService
 }
 
