@@ -8,5 +8,7 @@ import (
 
 func TestPingService_Ping(t *testing.T) {
 	pingService := application.NewPingService()
-	assert.Equal(t, "pong", pingService.Ping())
+	actual := pingService.Ping()
+
+	assert.Equal(t, "pong", actual)
 }

@@ -11,37 +11,39 @@ import (
 	"testing"
 )
 
-type PingControllerSuite struct {
+type PingHandlerSuite struct {
 	suite.Suite
 	app         *fiber.App
 	pingHandler handlers.IPingHandler
 	pingService *MockPingService
 }
 
-func (suite *PingControllerSuite) SetupTest() {
+func (suite *PingHandlerSuite) SetupTest() {
 	suite.pingService = new(MockPingService)
 	suite.pingHandler = handlers.NewPingHandler(suite.pingService)
 	suite.app = fiber.New()
 	suite.app.Get("/ping", suite.pingHandler.Ping())
 }
 
-func TestIntegration(t *testing.T) {
-	suite.Run(t, new(PingControllerSuite))
+func TestRunSuite(t *testing.T) {
+	suite.Run(t, new(PingHandlerSuite))
 }
 
 type MockPingService struct {
 	mock.Mock
 }
 
-func (m *MockPingService) Ping() string {
-	args := m.Called()
+func (mock *MockPingService) Ping() string {
+	args := mock.Called()
 	return args.Get(0).(string)
 }
 
-func (suite *PingControllerSuite) TestPingHandler_Ping() {
-	suite.pingService.On("Ping").Return("pong")
-	request := httptest.NewRequest(http.MethodGet, "/ping", nil)
+func (suite *PingHandlerSuite) TestPingHandler_Ping() {
+	suite.pingService.
+		On("Ping").
+		Return("pong")
 
+	request := httptest.NewRequest(http.MethodGet, "/ping", nil)
 	response, err := suite.app.Test(request)
 	suite.NoError(err)
 	suite.NotNil(response)

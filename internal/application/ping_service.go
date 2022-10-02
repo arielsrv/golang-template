@@ -11,6 +11,6 @@ func NewPingService() *PingService {
 	return &PingService{}
 }
 
-func (p PingService) Ping() string {
+func (service PingService) Ping() string {
 	return "pong"
 }
