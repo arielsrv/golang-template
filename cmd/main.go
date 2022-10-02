@@ -11,6 +11,7 @@ import (
 	"github.com/golang-template/internal/application"
 	"github.com/golang-template/internal/infrastructure/handlers"
 	"log"
+	"net/http"
 	"os"
 )
 
@@ -36,8 +37,8 @@ func main() {
 	pingService := application.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
 
-	app.Add(fiber.MethodGet, "/ping", pingHandler.Ping())
-	app.Add(fiber.MethodGet, "/swagger/*", swagger.HandlerDefault)
+	app.Add(http.MethodGet, "/ping", pingHandler.Ping())
+	app.Add(http.MethodGet, "/swagger/*", swagger.HandlerDefault)
 
 	host := os.Getenv("HOST")
 	if host == "" {
