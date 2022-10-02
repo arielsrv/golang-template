@@ -22,7 +22,7 @@ func (suite *PingHandlerSuite) SetupTest() {
 	suite.pingService = new(MockPingService)
 	suite.pingHandler = handlers.NewPingHandler(suite.pingService)
 	suite.app = fiber.New()
-	suite.app.Get("/ping", suite.pingHandler.Ping())
+	suite.app.Get("/ping", suite.pingHandler.Ping)
 }
 
 func TestRunSuite(t *testing.T) {

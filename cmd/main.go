@@ -37,7 +37,7 @@ func main() {
 	pingService := application.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
 
-	app.Add(http.MethodGet, "/ping", pingHandler.Ping())
+	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
 	app.Add(http.MethodGet, "/swagger/*", swagger.HandlerDefault)
 
 	host := os.Getenv("HOST")

@@ -6,7 +6,7 @@ import (
 )
 
 type IPingHandler interface {
-	Ping() fiber.Handler
+	Ping(ctx *fiber.Ctx) error
 }
 
 type PingHandler struct {
@@ -27,9 +27,7 @@ func NewPingHandler(pingService application.IPingService) *PingHandler {
 // @Produce     plain
 // @Success     200 {string} string "pong"
 // @Router      /ping [get]
-func (handler PingHandler) Ping() fiber.Handler {
-	return func(ctx *fiber.Ctx) error {
-		result := handler.pingService.Ping()
-		return ctx.SendString(result)
-	}
+func (handler PingHandler) Ping(ctx *fiber.Ctx) error {
+	result := handler.pingService.Ping()
+	return ctx.SendString(result)
 }
