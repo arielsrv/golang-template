@@ -16,7 +16,7 @@ tasks:
   lint:
     desc: Use golangci-lint (.golangci.yml).
     cmds:
-      - golangci-lint run
+      - golangci-lint run --fix
   test:
     desc: Run test.
     cmds:

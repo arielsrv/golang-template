@@ -10,6 +10,7 @@ type IPingHandler interface {
 }
 
 type PingHandler struct {
+	Handler
 	pingService services.IPingService
 }
 
@@ -27,7 +28,9 @@ func NewPingHandler(pingService services.IPingService) *PingHandler {
 // @Produce     plain
 // @Success     200 {string} string "pong"
 // @Router      /ping [get]
-func (handler PingHandler) Ping(ctx *fiber.Ctx) error {
-	result := handler.pingService.Ping()
-	return ctx.SendString(result)
+func (h PingHandler) Ping(ctx *fiber.Ctx) error {
+	result := h.pingService.Ping()
+
+	return h.Handler.
+		SendString(ctx, result)
 }

@@ -24,7 +24,7 @@ linters-settings:
     package-average: 10.0
 
   errcheck:
-    # Report about not checking of errors in type assertions: `a := b.(MyStruct)`.
+    # Report about not checking of shared in type assertions: `a := b.(MyStruct)`.
     # Such cases aren't reported by default.
     # Default: false
     check-type-assertions: true
@@ -145,7 +145,7 @@ linters:
   disable-all: true
   enable:
     ## enabled by default
-    - errcheck # checking for unchecked errors, these unchecked errors can be critical bugs in some cases
+    - errcheck # checking for unchecked shared, these unchecked shared can be critical bugs in some cases
     - gosimple # specializes in simplifying a code
     - govet # reports suspicious constructs, such as Printf calls whose arguments do not align with the format string
     - ineffassign # detects when assignments to existing variables are not used
@@ -161,7 +161,7 @@ linters:
     - cyclop # checks function and package cyclomatic complexity
     - dupl # tool for code clone detection
     - durationcheck # checks for two durations multiplied together
-    - errname # checks that sentinel errors are prefixed with the Err and error types are suffixed with the Error
+    - errname # checks that sentinel shared are prefixed with the Err and error types are suffixed with the Error
     - errorlint # finds code that will cause problems with the error wrapping scheme introduced in Go 1.13
     - execinquery # checks query string in Query function which reads your Go src files and warning it finds
     - exhaustive # checks exhaustiveness of enum switch statements
@@ -212,15 +212,15 @@ linters:
     #- ireturn # accept interfaces, return concrete types
     #- prealloc # [premature optimization, but can be used in some cases] finds slice declarations that could potentially be preallocated
     #- varnamelen # [great idea, but too many false positives] checks that the length of a variable's name matches its scope
-    #- wrapcheck # checks that errors returned from external packages are wrapped
+    #- wrapcheck # checks that shared returned from external packages are wrapped
 
     ## disabled
     #- containedctx # detects struct contained context.Context field
     #- depguard # [replaced by gomodguard] checks if package imports are in a list of acceptable packages
     #- dogsled # checks assignments with too many blank identifiers (e.g. x, _, _, _, := f())
-    #- errchkjson # [don't see profit + I'm against of omitting errors like in the first example https://github.com/breml/errchkjson] checks types passed to the json encoding functions. Reports unsupported types and optionally reports occasions, where the check for the returned error can be omitted
+    #- errchkjson # [don't see profit + I'm against of omitting shared like in the first example https://github.com/breml/errchkjson] checks types passed to the json encoding functions. Reports unsupported types and optionally reports occasions, where the check for the returned error can be omitted
     #- forcetypeassert # [replaced by errcheck] finds forced type assertions
-    #- goerr113 # [too strict] checks the errors handling expressions
+    #- goerr113 # [too strict] checks the shared handling expressions
     #- gofmt # [replaced by goimports] checks whether code was gofmt-ed
     #- gofumpt # [replaced by goimports, gofumports is not available yet] checks whether code was gofumpt-ed
     #- grouper # analyzes expression groups

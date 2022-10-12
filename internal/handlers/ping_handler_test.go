@@ -38,7 +38,7 @@ func (mock *MockPingService) Ping() string {
 	return args.Get(0).(string)
 }
 
-func (suite *PingHandlerSuite) TestPingHandler_Ping() {
+func (suite *PingHandlerSuite) TestPingHandler_Ping_Ok() {
 	suite.pingService.
 		On("Ping").
 		Return("pong")
@@ -54,4 +54,16 @@ func (suite *PingHandlerSuite) TestPingHandler_Ping() {
 	suite.NotNil(body)
 
 	suite.Equal("pong", string(body))
+}
+
+func (suite *PingHandlerSuite) TestPingHandler_Ping_NotFound() {
+	suite.pingService.
+		On("Ping").
+		Return("")
+
+	request := httptest.NewRequest(http.MethodGet, "/ping", nil)
+	response, err := suite.app.Test(request)
+	suite.NoError(err)
+	suite.NotNil(response)
+	suite.Equal(http.StatusNotFound, response.StatusCode)
 }
