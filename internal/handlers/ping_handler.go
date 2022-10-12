@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/golang-template/internal/application"
+	"github.com/golang-template/internal/services"
 )
 
 type IPingHandler interface {
@@ -10,10 +10,10 @@ type IPingHandler interface {
 }
 
 type PingHandler struct {
-	pingService application.IPingService
+	pingService services.IPingService
 }
 
-func NewPingHandler(pingService application.IPingService) *PingHandler {
+func NewPingHandler(pingService services.IPingService) *PingHandler {
 	return &PingHandler{
 		pingService: pingService,
 	}

@@ -8,8 +8,8 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/gofiber/swagger"
 	_ "github.com/golang-template/docs"
-	"github.com/golang-template/internal/application"
-	"github.com/golang-template/internal/infrastructure/handlers"
+	"github.com/golang-template/internal/handlers"
+	"github.com/golang-template/internal/services"
 	"log"
 	"net/http"
 	"os"
@@ -34,7 +34,7 @@ func main() {
 		Format: "${pid} ${locals:requestid} ${status} - ${method} ${path}\n",
 	}))
 
-	pingService := application.NewPingService()
+	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
 
 	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
