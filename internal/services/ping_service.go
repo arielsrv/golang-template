@@ -1,4 +1,4 @@
-package application
+package services
 
 type IPingService interface {
 	Ping() string

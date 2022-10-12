@@ -2,7 +2,7 @@ package handlers_test
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/golang-template/internal/infrastructure/handlers"
+	"github.com/golang-template/internal/handlers"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 	"io"

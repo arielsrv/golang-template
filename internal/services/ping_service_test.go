@@ -1,13 +1,13 @@
-package application_test
+package services_test
 
 import (
-	"github.com/golang-template/internal/application"
+	"github.com/golang-template/internal/services"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestPingService_Ping(t *testing.T) {
-	pingService := application.NewPingService()
+	pingService := services.NewPingService()
 	actual := pingService.Ping()
 
 	assert.Equal(t, "pong", actual)
