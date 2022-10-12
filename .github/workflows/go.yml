@@ -18,11 +18,17 @@ jobs:
         with:
           go-version: 1.19
 
+      - name: arduino/setup-task
+        uses: arduino/setup-task@1.0.2
+
       - name: Build
-        run: go build -v ./...
+        run: task build
 
       - name: Test
-        run: go test -v ./...
+        run: task test
+
+      - name: Run Test
+        run: task coverage
 
       - name: Run Test
         run: |
