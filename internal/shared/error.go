@@ -20,27 +20,27 @@ func (e Error) Error() string {
 }
 
 func ErrorHandler(ctx *fiber.Ctx, err error) error {
-	e := &Error{
-		StatusCode: http.StatusInternalServerError,
-		Message:    err.Error(),
-	}
+	var e = new(Error)
 
 	var fiberError *fiber.Error
-	if errors.As(err, &fiberError) {
-		e.StatusCode = fiberError.Code
-		e.Message = fiberError.Message
-		ctx.Status(e.StatusCode) //nolint:nolintlint,errcheck
-	}
-
 	var apiError *Error
-	if errors.As(err, &apiError) {
-		e.StatusCode = apiError.StatusCode
-		e.Message = apiError.Message
-		ctx.Status(e.StatusCode) //nolint:nolintlint,errcheck
+
+	switch {
+	case errors.As(err, &fiberError):
+		{
+			e.StatusCode = fiberError.Code
+			e.Message = fiberError.Message
+		}
+	case errors.As(err, &apiError):
+		{
+			e.StatusCode = apiError.StatusCode
+			e.Message = apiError.Message
+		}
+	default:
+		e.StatusCode = http.StatusInternalServerError
+		e.Message = err.Error()
 	}
 
-	return ctx.Status(e.StatusCode).JSON(&Error{
-		StatusCode: e.StatusCode,
-		Message:    e.Message,
-	})
+	ctx.Status(e.StatusCode)
+	return ctx.JSON(e)
 }
