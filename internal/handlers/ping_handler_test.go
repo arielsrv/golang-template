@@ -25,7 +25,7 @@ func (suite *PingHandlerSuite) SetupTest() {
 	suite.app.Get("/ping", suite.pingHandler.Ping)
 }
 
-func TestRunSuite(t *testing.T) {
+func TestPingHandlerSuite(t *testing.T) {
 	suite.Run(t, new(PingHandlerSuite))
 }
 

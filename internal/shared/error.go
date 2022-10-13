@@ -9,7 +9,6 @@ import (
 type Error struct {
 	StatusCode int    `json:"status_code,omitempty"`
 	Message    string `json:"message,omitempty"`
-	Details    string `json:"details,omitempty"`
 }
 
 func NewError(statusCode int, message string) *Error {
@@ -23,13 +22,14 @@ func (e Error) Error() string {
 func ErrorHandler(ctx *fiber.Ctx, err error) error {
 	e := &Error{
 		StatusCode: http.StatusInternalServerError,
-		Message:    "internal server error",
-		Details:    err.Error(),
+		Message:    err.Error(),
 	}
 
 	var fiberError *fiber.Error
 	if errors.As(err, &fiberError) {
-		return ctx.Status(fiberError.Code).SendString(fiberError.Error())
+		e.StatusCode = fiberError.Code
+		e.Message = fiberError.Message
+		ctx.Status(e.StatusCode) //nolint:nolintlint,errcheck
 	}
 
 	var apiError *Error
@@ -42,6 +42,5 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 	return ctx.Status(e.StatusCode).JSON(&Error{
 		StatusCode: e.StatusCode,
 		Message:    e.Message,
-		Details:    e.Details,
 	})
 }

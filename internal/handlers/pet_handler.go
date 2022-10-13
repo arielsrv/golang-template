@@ -36,7 +36,7 @@ func (p PetHandler) GetAll(ctx *fiber.Ctx) error {
 	model := new([]model.PetModel)
 
 	if len(*model) == 0 {
-		return shared.NewError(http.StatusNotFound, "not pets found")
+		return shared.NewError(http.StatusNotFound, "no pets found")
 	}
 
 	return p.Handler.
