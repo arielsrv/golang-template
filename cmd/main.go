@@ -10,6 +10,7 @@ import (
 	_ "github.com/golang-template/docs"
 	"github.com/golang-template/internal/handlers"
 	"github.com/golang-template/internal/services"
+	"github.com/golang-template/internal/shared"
 	"log"
 	"net/http"
 	"os"
@@ -22,6 +23,7 @@ import (
 func main() {
 	app := fiber.New(fiber.Config{
 		DisableStartupMessage: true,
+		ErrorHandler:          shared.ErrorHandler,
 	})
 
 	app.Use(recover.New(recover.Config{
@@ -37,7 +39,12 @@ func main() {
 	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
 
+	petHandler := handlers.NewPetHandler()
+
 	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
+	app.Add(http.MethodGet, "/pets", petHandler.GetAll)
+	app.Add(http.MethodGet, "/pets/:petID", petHandler.GetPetByID)
+	app.Add(http.MethodPost, "/pets", petHandler.Create)
 	app.Add(http.MethodGet, "/swagger/*", swagger.HandlerDefault)
 
 	host := os.Getenv("HOST")
