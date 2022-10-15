@@ -1,7 +1,7 @@
 package handlers_test
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/arielsrv/golang-toolkit/webserver/api"
 	"github.com/golang-template/internal/handlers"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
@@ -13,16 +13,17 @@ import (
 
 type PingHandlerSuite struct {
 	suite.Suite
-	app         *fiber.App
 	pingHandler handlers.IPingHandler
 	pingService *MockPingService
+	app         *api.Application
 }
 
 func (suite *PingHandlerSuite) SetupTest() {
 	suite.pingService = new(MockPingService)
 	suite.pingHandler = handlers.NewPingHandler(suite.pingService)
-	suite.app = fiber.New()
-	suite.app.Get("/ping", suite.pingHandler.Ping)
+	suite.app = new(api.Application)
+	suite.app.Register(http.MethodGet, "/ping", suite.pingHandler.Ping)
+	suite.app.Build()
 }
 
 func TestRunSuite(t *testing.T) {
@@ -44,7 +45,7 @@ func (suite *PingHandlerSuite) TestPingHandler_Ping() {
 		Return("pong")
 
 	request := httptest.NewRequest(http.MethodGet, "/ping", nil)
-	response, err := suite.app.Test(request)
+	response, err := suite.app.FiberApp.Test(request)
 	suite.NoError(err)
 	suite.NotNil(response)
 	suite.Equal(http.StatusOK, response.StatusCode)
