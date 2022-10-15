@@ -1,12 +1,12 @@
 package handlers
 
 import (
-	"github.com/arielsrv/golang-toolkit/webserver/api"
+	"github.com/gofiber/fiber/v2"
 	"github.com/golang-template/internal/services"
 )
 
 type IPingHandler interface {
-	Ping(ctx *api.Context) error
+	Ping(ctx *fiber.Ctx) error
 }
 
 type PingHandler struct {
@@ -27,7 +27,7 @@ func NewPingHandler(pingService services.IPingService) *PingHandler {
 // @Produce     plain
 // @Success     200 {string} string "pong"
 // @Router      /ping [get]
-func (handler PingHandler) Ping(ctx *api.Context) error {
+func (handler PingHandler) Ping(ctx *fiber.Ctx) error {
 	result := handler.pingService.Ping()
 	return ctx.SendString(result)
 }
