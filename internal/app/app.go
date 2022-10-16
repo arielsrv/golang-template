@@ -1,21 +1,41 @@
 package app
 
 import (
+	"container/list"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/gofiber/swagger"
+	"log"
 	"net/http"
 )
 
 type App struct {
 	*fiber.App
 	config Config
+	routes list.List
+}
+
+func Fiber(ctx *Context) *fiber.Ctx {
+	return ctx.Current.(*fiber.Ctx)
 }
 
 func (app *App) Start(addr string) error {
-	return app.Listen(addr)
+	return app.Build().Listen(addr)
+}
+
+func (app *App) Build() *App {
+	for node := app.routes.Front(); node != nil; node = node.Next() {
+		route, converted := node.Value.(Route)
+		if !converted {
+			log.Fatalf("Cannot parse route.")
+		}
+		app.Add(route.Verb, route.Path, func(ctx *fiber.Ctx) error {
+			return route.Action(&Context{Current: ctx})
+		})
+	}
+	return app
 }
 
 func New(config ...Config) *App {
@@ -58,4 +78,24 @@ type Config struct {
 	Swagger   bool
 	RequestID bool
 	Logger    bool
+}
+
+type Route struct {
+	Path   string
+	Verb   string
+	Action func(context *Context) error
+}
+
+type Context struct {
+	Current interface{}
+}
+
+func (app *App) Register(verb string, path string, action func(context *Context) error) *App {
+	app.routes.PushBack(Route{
+		Path:   path,
+		Verb:   verb,
+		Action: action,
+	})
+
+	return app
 }

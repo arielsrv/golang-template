@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample swagger for Golang Template API",
-        "title": "Golang Template API",
+        "description": "This is a sample swagger for Golang Template App",
+        "title": "Golang Template App",
         "contact": {},
         "version": "1.0"
     },

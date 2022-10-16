@@ -45,8 +45,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "",
 	BasePath:         "/",
 	Schemes:          []string{},
-	Title:            "Golang Template API",
-	Description:      "This is a sample swagger for Golang Template API",
+	Title:            "Golang Template App",
+	Description:      "This is a sample swagger for Golang Template App",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

@@ -1,8 +1,8 @@
 basePath: /
 info:
   contact: {}
-  description: This is a sample swagger for Golang Template API
-  title: Golang Template API
+  description: This is a sample swagger for Golang Template App
+  title: Golang Template App
   version: "1.0"
 paths:
   /ping:

@@ -11,9 +11,9 @@ import (
 	"os"
 )
 
-// @title       Golang Template API
+// @title       Golang Template App
 // @version     1.0
-// @description This is a sample swagger for Golang Template API
+// @description This is a sample swagger for Golang Template App
 // @BasePath    /
 func main() {
 	app := app.New(app.Config{
@@ -26,7 +26,7 @@ func main() {
 	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
 
-	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
+	app.Register(http.MethodGet, "/ping", pingHandler.Ping)
 
 	host := os.Getenv("HOST")
 	if host == "" {
