@@ -1,7 +1,7 @@
 package handlers_test
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/golang-template/internal/app"
 	"github.com/golang-template/internal/handlers"
 	"log"
 	"net/http"
@@ -13,7 +13,7 @@ import (
 func BenchmarkPingHandler_Ping(b *testing.B) {
 	pingService := new(MockPingService)
 	pingHandler := handlers.NewPingHandler(pingService)
-	app := fiber.New()
+	app := app.New()
 	app.Get("/ping", pingHandler.Ping)
 
 	pingService.On("Ping").Return("pong")
