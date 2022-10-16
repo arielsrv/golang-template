@@ -13,7 +13,7 @@ type PingHandler struct {
 	pingService services.IPingService
 }
 
-func NewPingHandler(pingService services.IPingService) *PingHandler {
+func NewPingHandler(pingService services.IPingService) IPingHandler {
 	return &PingHandler{
 		pingService: pingService,
 	}
