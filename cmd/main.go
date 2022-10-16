@@ -23,11 +23,11 @@ func main() {
 		fx.Provide(handlers.NewPingHandler),
 		fx.Provide(NewHandlers),
 		fx.Invoke(Start),
-		//fx.WithLogger(
+		// fx.WithLogger(
 		//	func() fxevent.Logger {
 		//		return fxevent.NopLogger
 		//	},
-		//),
+		// ),
 	)
 	app.Run()
 }
