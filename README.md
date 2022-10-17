@@ -22,7 +22,7 @@ package main
 
 import (
     "fmt"
-    _ "github.com/golang-template/docs"
+    _ "github.com/golang-template/docs" // only for swagger
     "github.com/golang-template/internal/app"
     "github.com/golang-template/internal/handlers"
     "github.com/golang-template/internal/services"
@@ -31,38 +31,24 @@ import (
     "os"
 )
 
-// @title       Golang Template API
-// @version     1.0
-// @description This is a sample swagger for Golang Template API
-// @BasePath    /
 func main() {
+    // RESTful server config
     app := app.New(app.Config{
         Recovery:  true,
-        Swagger:   true,
+        Swagger:   false,
         RequestID: true,
         Logger:    true,
     })
 
+    // Handlers
     pingService := services.NewPingService()
     pingHandler := handlers.NewPingHandler(pingService)
 
+    // Routing
     app.Add(http.MethodGet, "/ping", pingHandler.Ping)
 
-    host := os.Getenv("HOST")
-    if host == "" {
-        host = "127.0.0.1"
-    }
-
-    port := os.Getenv("PORT")
-    if port == "" {
-        port = "8080"
-    }
-
-    address := fmt.Sprintf("%s:%s", host, port)
-
-    log.Printf("Listening on port %s", port)
-    log.Printf("Open http://%s:%s/ping in the browser", host, port)
-    log.Fatal(app.Start(address))
+    // Start
+    log.Fatal(app.Start("127.0.0.1:8080"))
 }
 ```
 
