@@ -16,7 +16,7 @@ tasks:
   lint:
     desc: Use golangci-lint (.golangci.yml).
     cmds:
-      - golangci-lint run
+      - golangci-lint run --fix
   test:
     desc: Run test.
     cmds:
@@ -31,6 +31,7 @@ tasks:
     desc: Clean binaries and reports.
     cmds:
       - rm -rf $BUILD_FOLDER
+      - rm -rf $COVERAGE_OUT_FILE $COVERAGE_HTML_FILE
   download:
     desc: Run go mod tidy.
     cmds:
