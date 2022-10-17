@@ -28,7 +28,7 @@ func TestRunSuite(t *testing.T) {
 
 func (suite *PingHandlerSuite) TestCorsRequest_Ok() {
 	request := httptest.NewRequest(http.MethodOptions, "/ping", nil)
-	request.Header.Set("Origin", "contoso.com")
+	request.Header.Set("Origin", "herokuapp.com")
 	response, err := suite.app.Test(request)
 
 	suite.NoError(err)
@@ -37,7 +37,7 @@ func (suite *PingHandlerSuite) TestCorsRequest_Ok() {
 	suite.Equal(http.StatusNoContent, response.StatusCode)
 	suite.Equal("Accept,Accept-Encoding,Origin,Access-Control-Request-Headers", response.Header.Get("Vary"))
 	suite.Equal("max-age=0", response.Header.Get("Cache-Control"))
-	suite.Equal("contoso.com", response.Header.Get("Access-Control-Allow-Origin"))
+	suite.Equal("herokuapp.com", response.Header.Get("Access-Control-Allow-Origin"))
 	suite.Equal("GET,POST,PUT,DELETE,PATCH,HEAD", response.Header.Get("Access-Control-Allow-Methods"))
 	suite.Equal("true", response.Header.Get("Access-Control-Allow-Credentials"))
 
