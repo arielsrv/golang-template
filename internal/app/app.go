@@ -23,7 +23,12 @@ func New(config ...Config) *App {
 		App: fiber.New(fiber.Config{
 			DisableStartupMessage: true,
 		}),
-		config: Config{},
+		config: Config{
+			Recovery:  true,
+			Swagger:   true,
+			RequestID: true,
+			Logger:    true,
+		},
 	}
 
 	if len(config) > 0 {

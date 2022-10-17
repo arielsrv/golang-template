@@ -16,12 +16,7 @@ import (
 // @description This is a sample swagger for Golang Template API
 // @BasePath    /
 func main() {
-	app := app.New(app.Config{
-		Recovery:  true,
-		Swagger:   true,
-		RequestID: true,
-		Logger:    true,
-	})
+	app := app.New()
 
 	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)

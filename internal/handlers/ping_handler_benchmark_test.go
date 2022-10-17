@@ -13,8 +13,10 @@ import (
 func BenchmarkPingHandler_Ping(b *testing.B) {
 	pingService := new(MockPingService)
 	pingHandler := handlers.NewPingHandler(pingService)
-	app := app.New()
-	app.Get("/ping", pingHandler.Ping)
+	app := app.New(app.Config{
+		Logger: false,
+	})
+	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
 
 	pingService.On("Ping").Return("pong")
 
