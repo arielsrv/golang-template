@@ -21,7 +21,6 @@ $ go install github.com/oligot/go-mod-upgrade@latest
 package main
 
 import (
-    "fmt"
     _ "github.com/golang-template/docs" // only for swagger
     "github.com/golang-template/internal/app"
     "github.com/golang-template/internal/handlers"
@@ -51,6 +50,48 @@ func main() {
     log.Fatal(app.Start("127.0.0.1:8080"))
 }
 ```
+
+## benchmark
+```go
+package handlers_test
+
+import (
+	"github.com/golang-template/internal/app"
+	"github.com/golang-template/internal/handlers"
+	"log"
+	"net/http"
+	"net/http/httptest"
+	"strconv"
+	"testing"
+)
+
+func BenchmarkPingHandler_Ping(b *testing.B) {
+	pingService := new(MockPingService)
+	pingHandler := handlers.NewPingHandler(pingService)
+	app := app.New(app.Config{
+		Logger: false,
+	})
+	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
+
+	pingService.On("Ping").Return("pong")
+
+	for i := 0; i < b.N; i++ {
+		request := httptest.NewRequest(http.MethodGet, "/ping", nil)
+		response, err := app.Test(request)
+		if err != nil || response.StatusCode != http.StatusOK {
+			log.Print("f[" + strconv.Itoa(i) + "] Status != OK (200)")
+		}
+	}
+}
+```
+
+```shell
+go test ./... -bench=.
+```
+goos: darwin
+goarch: arm64
+pkg: github.com/golang-template/internal/handlers
+BenchmarkPingHandler_Ping-8        22664             53260 ns/op
 
 ## building
 
