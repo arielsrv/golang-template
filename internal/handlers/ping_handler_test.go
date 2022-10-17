@@ -39,9 +39,7 @@ func (mock *MockPingService) Ping() string {
 }
 
 func (suite *PingHandlerSuite) TestPingHandler_Ping() {
-	suite.pingService.
-		On("Ping").
-		Return("pong")
+	suite.pingService.On("Ping").Return("pong")
 
 	request := httptest.NewRequest(http.MethodGet, "/ping", nil)
 	response, err := suite.app.Test(request)
