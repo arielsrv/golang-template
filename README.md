@@ -88,10 +88,12 @@ func BenchmarkPingHandler_Ping(b *testing.B) {
 ```shell
 go test ./... -bench=.
 ```
+````text
 goos: darwin
 goarch: arm64
 pkg: github.com/golang-template/internal/handlers
 BenchmarkPingHandler_Ping-8        22664             53260 ns/op
+````
 
 ## building
 
