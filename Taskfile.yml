@@ -31,7 +31,6 @@ tasks:
     desc: Clean binaries and reports.
     cmds:
       - rm -rf $BUILD_FOLDER
-      - rm -rf coverage.html coverage.out
   download:
     desc: Run go mod tidy.
     cmds:
