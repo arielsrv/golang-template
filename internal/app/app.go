@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/gofiber/swagger"
 	"net/http"
+	"regexp"
 )
 
 type App struct {
@@ -28,6 +29,7 @@ func New(config ...Config) *App {
 			Swagger:   true,
 			RequestID: true,
 			Logger:    true,
+			Cors:      false,
 		},
 	}
 
@@ -55,6 +57,23 @@ func New(config ...Config) *App {
 		app.Add(http.MethodGet, "/swagger/*", swagger.HandlerDefault)
 	}
 
+	if app.config.Cors {
+		regex := regexp.MustCompile(`contoso.com`)
+		app.Add(http.MethodOptions, "/*", func(ctx *fiber.Ctx) error {
+			origin := ctx.GetReqHeaders()["Origin"]
+			matched := regex.MatchString(origin)
+			if matched {
+				ctx.Response().Header.Add("Vary", "Accept,Accept-Encoding,Origin,Access-Control-Request-Headers")
+				ctx.Response().Header.Add("Cache-Control", "max-age=0")
+				ctx.Response().Header.Add("Access-Control-Allow-Origin", origin)
+				ctx.Response().Header.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,PATCH,HEAD")
+				ctx.Response().Header.Add("Access-Control-Allow-Credentials", "true")
+				return ctx.SendStatus(http.StatusNoContent)
+			}
+			return ctx.SendStatus(http.StatusForbidden)
+		})
+	}
+
 	return app
 }
 
@@ -63,4 +82,5 @@ type Config struct {
 	Swagger   bool
 	RequestID bool
 	Logger    bool
+	Cors      bool
 }
