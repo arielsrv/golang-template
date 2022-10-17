@@ -58,7 +58,7 @@ func New(config ...Config) *App {
 	}
 
 	if app.config.Cors {
-		regex := regexp.MustCompile(`herokuapp.com|azurewebsites.com`)
+		regex := regexp.MustCompile(`herokuapp\.com|azurewebsites\.com`)
 		app.Add(http.MethodOptions, "/*", func(ctx *fiber.Ctx) error {
 			origin := ctx.GetReqHeaders()["Origin"]
 			matched := regex.MatchString(origin)
