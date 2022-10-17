@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	_ "github.com/golang-template/docs"
-	"github.com/golang-template/internal/app"
 	"github.com/golang-template/internal/handlers"
+	"github.com/golang-template/internal/server"
 	"github.com/golang-template/internal/services"
 	"log"
 	"net/http"
@@ -16,7 +16,7 @@ import (
 // @description This is a sample swagger for Golang Template API
 // @BasePath    /
 func main() {
-	app := app.New()
+	app := server.New()
 
 	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)

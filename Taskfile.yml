@@ -4,7 +4,7 @@ version: '3'
 env:
   ENTRY_POINT: cmd/main.go
   BUILD_FOLDER: build
-  EXECUTABLE: app
+  EXECUTABLE: server
   COVERAGE_OUT_FILE: coverage.out
   COVERAGE_HTML_FILE: coverage.html
   SWAGGER_COVERAGE: "\
@@ -50,7 +50,7 @@ tasks:
   build:
     desc: Build the go EXECUTABLE.
     generates:
-      - app
+      - server
     interactive: true
     cmds:
       - mkdir -p $BUILD_FOLDER

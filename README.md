@@ -25,9 +25,9 @@ go install github.com/oligot/go-mod-upgrade@latest
 package main
 
 import (
-    _ "github.com/golang-template/docs" // only for swagger
-    "github.com/golang-template/internal/app"
+    _ "github.com/golang-template/docs"// only for swagger
     "github.com/golang-template/internal/handlers"
+    "github.com/golang-template/internal/server"
     "github.com/golang-template/internal/services"
     "log"
     "net/http"
@@ -36,7 +36,7 @@ import (
 
 func main() {
     // RESTful server config
-    app := app.New(app.Config{
+    app := server.New(server.Config{
         Recovery:  true,
         Swagger:   false,
         RequestID: true,
@@ -48,10 +48,10 @@ func main() {
     pingHandler := handlers.NewPingHandler(pingService)
 
     // Routing
-    app.Add(http.MethodGet, "/ping", pingHandler.Ping)
+    server.Add(http.MethodGet, "/ping", pingHandler.Ping)
 
     // Start
-    log.Fatal(app.Start("127.0.0.1:8080"))
+    log.Fatal(server.Start("127.0.0.1:8080"))
 }
 ```
 
@@ -61,28 +61,28 @@ func main() {
 package handlers_test
 
 import (
-	"github.com/golang-template/internal/app"
-	"github.com/golang-template/internal/handlers"
-	"log"
-	"net/http"
-	"net/http/httptest"
-	"strconv"
-	"testing"
+    "github.com/golang-template/internal/handlers"
+    "github.com/golang-template/internal/server"
+    "log"
+    "net/http"
+    "net/http/httptest"
+    "strconv"
+    "testing"
 )
 
-func BenchmarkPingHandler_Ping(b *testing.B) {
+func BenchmarkpinghandlerPing(b *testing.B) {
 	pingService := new(MockPingService)
 	pingHandler := handlers.NewPingHandler(pingService)
-	app := app.New(app.Config{
+	app := server.New(server.Config{
 		Logger: false,
 	})
-	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
+	server.Add(http.MethodGet, "/ping", pingHandler.Ping)
 
 	pingService.On("Ping").Return("pong")
 
 	for i := 0; i < b.N; i++ {
 		request := httptest.NewRequest(http.MethodGet, "/ping", nil)
-		response, err := app.Test(request)
+		response, err := server.Test(request)
 		if err != nil || response.StatusCode != http.StatusOK {
 			log.Print("f[" + strconv.Itoa(i) + "] Status != OK (200)")
 		}
@@ -135,6 +135,12 @@ task coverage
 
 ```shell
 task download upgrade
+```
+
+## swagger [docs](/docs)
+
+```shell
+task swagger
 ```
 
 ## example request
