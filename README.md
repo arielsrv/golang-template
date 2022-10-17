@@ -103,7 +103,7 @@ BenchmarkPingHandler_Ping-8        22664             53260 ns/op
 
 ./task run
 
-## lint (.golangci.yml)
+## lint [included rules](.golangci.yml)
 
 ./task lint
 
