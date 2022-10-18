@@ -24,10 +24,10 @@ tasks:
   coverage:
     desc: Makes report coverage.
     cmds:
-      - echo files $COVERAGE_OUT_FILE, $COVERAGE_HTML_FILE
-      - go test -v ./... -covermode=count -coverpkg=./... -coverprofile $COVERAGE_OUT_FILE
+      - echo files $COVERAGE_OUT_FILE, $COVERAGE_HTML_FILE // -coverpkg=./...
+      - go test -v ./... -covermode=count -coverprofile=$COVERAGE_OUT_FILE
       - go tool cover -html $COVERAGE_OUT_FILE -o $COVERAGE_HTML_FILE
-      - go tool cover -func=$COVERAGE_OUT_FILE
+      - go tool cover -func=$COVERAGE_OUT_FILE -o=$COVERAGE_OUT_FILE
   clean:
     desc: Clean binaries and reports.
     cmds:
