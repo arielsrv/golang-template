@@ -24,7 +24,7 @@ tasks:
   coverage:
     desc: Makes report coverage.
     cmds:
-      - echo files $COVERAGE_OUT_FILE, $COVERAGE_HTML_FILE // -coverpkg=./...
+      - echo files $COVERAGE_OUT_FILE, $COVERAGE_HTML_FILE // -coverpkg=./... all files
       - go test -v ./... -covermode=count -coverprofile=$COVERAGE_OUT_FILE
       - go tool cover -html $COVERAGE_OUT_FILE -o $COVERAGE_HTML_FILE
       - go tool cover -func=$COVERAGE_OUT_FILE -o=$COVERAGE_OUT_FILE

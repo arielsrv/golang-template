@@ -27,9 +27,9 @@ jobs:
       - name: Test
         run: task test
 
-      - name: Run Test
+      - name: Coverage
         run: task coverage
-        
+
       - name: Go Coverage Badge  # Pass the `coverage.out` output to this action
         uses: tj-actions/coverage-badge-go@v2
         with:
