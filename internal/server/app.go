@@ -9,15 +9,22 @@ import (
 	"net/http"
 )
 
+// App Fiber Wrapper
+//
+// Config enabled by default
 type App struct {
 	*fiber.App
 	config Config
 }
 
+// Start server
 func (app *App) Start(addr string) error {
 	return app.Listen(addr)
 }
 
+// New Create a new Fiber Server
+// Use Config for disable recovery, swagger, requestID and Logger middlewares.
+// All configs are enabled by default
 func New(config ...Config) *App {
 	app := &App{
 		App: fiber.New(fiber.Config{
@@ -58,6 +65,15 @@ func New(config ...Config) *App {
 	return app
 }
 
+// Config fiber options wrapper
+//
+// Recovery option is useful to handle panics.
+//
+// Swagger option enable UI /swagger/*.
+//
+// RequestID option include unique identifier for incoming request.
+//
+// Logger option enable request logging
 type Config struct {
 	Recovery  bool
 	Swagger   bool
