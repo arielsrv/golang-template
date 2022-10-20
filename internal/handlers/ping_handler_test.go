@@ -23,7 +23,8 @@ func (suite *PingHandlerSuite) SetupTest() {
 	suite.pingService = new(MockPingService)
 	suite.pingHandler = handlers.NewPingHandler(suite.pingService)
 	suite.app = server.New()
-	suite.app.Add(http.MethodGet, "/ping", suite.pingHandler.Ping)
+	suite.app.Register(http.MethodGet, "/ping", suite.pingHandler.Ping)
+	suite.app.Build()
 }
 
 func TestRunSuite(t *testing.T) {
