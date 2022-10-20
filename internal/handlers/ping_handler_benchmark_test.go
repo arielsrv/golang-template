@@ -1,8 +1,8 @@
 package handlers_test
 
 import (
-	"github.com/golang-template/internal/app"
 	"github.com/golang-template/internal/handlers"
+	"github.com/golang-template/internal/server"
 	"log"
 	"net/http"
 	"net/http/httptest"
@@ -13,7 +13,7 @@ import (
 func BenchmarkPingHandler_Ping(b *testing.B) {
 	pingService := new(MockPingService)
 	pingHandler := handlers.NewPingHandler(pingService)
-	app := app.New(app.Config{Logger: false})
+	app := server.New(server.Config{Logger: false})
 	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
 
 	pingService.On("Ping").Return("pong")

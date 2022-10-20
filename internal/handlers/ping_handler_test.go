@@ -1,8 +1,8 @@
 package handlers_test
 
 import (
-	"github.com/golang-template/internal/app"
 	"github.com/golang-template/internal/handlers"
+	"github.com/golang-template/internal/server"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 	"io"
@@ -13,7 +13,7 @@ import (
 
 type PingHandlerSuite struct {
 	suite.Suite
-	app         *app.App
+	app         *server.App
 	pingHandler handlers.IPingHandler
 	pingService *MockPingService
 }
@@ -21,7 +21,7 @@ type PingHandlerSuite struct {
 func (suite *PingHandlerSuite) SetupTest() {
 	suite.pingService = new(MockPingService)
 	suite.pingHandler = handlers.NewPingHandler(suite.pingService)
-	suite.app = app.New()
+	suite.app = server.New()
 	suite.app.Add(http.MethodGet, "/ping", suite.pingHandler.Ping)
 }
 
