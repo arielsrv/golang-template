@@ -2,26 +2,22 @@ package main
 
 import (
 	"fmt"
-	_ "github.com/golang-template/docs"
-	"github.com/golang-template/internal/app"
-	"github.com/golang-template/internal/handlers"
-	"github.com/golang-template/internal/services"
 	"log"
 	"net/http"
 	"os"
+
+	_ "github.com/golang-template/docs"
+	"github.com/golang-template/internal/handlers"
+	"github.com/golang-template/internal/server"
+	"github.com/golang-template/internal/services"
 )
 
 // @title       Golang Template App
 // @version     1.0
 // @description This is a sample swagger for Golang Template App
-// @BasePath    /
+// @BasePath    /.
 func main() {
-	app := app.New(app.Config{
-		Recovery:  true,
-		Swagger:   true,
-		RequestID: true,
-		Logger:    true,
-	})
+	app := server.New()
 
 	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)

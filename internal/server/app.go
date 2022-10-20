@@ -1,13 +1,11 @@
-package app
+package server
 
 import (
-	"container/list"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/gofiber/swagger"
-	"log"
 	"net/http"
 )
 
@@ -43,7 +41,12 @@ func New(config ...Config) *App {
 		App: fiber.New(fiber.Config{
 			DisableStartupMessage: true,
 		}),
-		config: Config{},
+		config: Config{
+			Recovery:  true,
+			Swagger:   true,
+			RequestID: true,
+			Logger:    true,
+		},
 	}
 
 	if len(config) > 0 {
