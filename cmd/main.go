@@ -2,19 +2,20 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
+	"os"
+
 	_ "github.com/golang-template/docs"
 	"github.com/golang-template/internal/handlers"
 	"github.com/golang-template/internal/server"
 	"github.com/golang-template/internal/services"
-	"log"
-	"net/http"
-	"os"
 )
 
 // @title       Golang Template API
 // @version     1.0
 // @description This is a sample swagger for Golang Template API
-// @BasePath    /
+// @BasePath    /.
 func main() {
 	app := server.New()
 
