@@ -2,7 +2,7 @@ package tests_test
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/golang-template/internal/app"
+	"github.com/golang-template/internal/server"
 	"github.com/stretchr/testify/suite"
 	"io"
 	"net/http"
@@ -12,11 +12,11 @@ import (
 
 type PingHandlerSuite struct {
 	suite.Suite
-	app *app.App
+	app *server.App
 }
 
 func (suite *PingHandlerSuite) SetupTest() {
-	suite.app = app.New(app.Config{Cors: true})
+	suite.app = server.New(server.Config{Cors: true})
 	suite.app.Add(http.MethodGet, "/ping", func(ctx *fiber.Ctx) error {
 		return ctx.SendString("pong")
 	})
