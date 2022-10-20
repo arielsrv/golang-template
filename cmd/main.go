@@ -2,13 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/gofiber/fiber/v2/middleware/requestid"
-	"github.com/gofiber/swagger"
 	_ "github.com/golang-template/docs"
 	"github.com/golang-template/internal/handlers"
+	"github.com/golang-template/internal/server"
 	"github.com/golang-template/internal/services"
 	"github.com/golang-template/internal/shared"
 	"log"
@@ -21,20 +17,7 @@ import (
 // @description This is a sample swagger for Golang Template API
 // @BasePath    /
 func main() {
-	app := fiber.New(fiber.Config{
-		DisableStartupMessage: true,
-		ErrorHandler:          shared.ErrorHandler,
-	})
-
-	app.Use(recover.New(recover.Config{
-		EnableStackTrace: true,
-	}))
-
-	app.Use(requestid.New())
-
-	app.Use(logger.New(logger.Config{
-		Format: "${pid} ${locals:requestid} ${status} - ${method} ${path}\n",
-	}))
+	app := server.New()
 
 	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
@@ -61,5 +44,5 @@ func main() {
 
 	log.Printf("Listening on port %s", port)
 	log.Printf("Open http://%s:%s/ping in the browser", host, port)
-	log.Fatal(app.Listen(address))
+	log.Fatal(app.Start(address))
 }

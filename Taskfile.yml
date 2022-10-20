@@ -4,7 +4,7 @@ version: '3'
 env:
   ENTRY_POINT: cmd/main.go
   BUILD_FOLDER: build
-  EXECUTABLE: app
+  EXECUTABLE: server
   COVERAGE_OUT_FILE: coverage.out
   COVERAGE_HTML_FILE: coverage.html
   SWAGGER_COVERAGE: "\
@@ -24,13 +24,15 @@ tasks:
   coverage:
     desc: Makes report coverage.
     cmds:
-      - go test -v ./... -covermode=count -coverpkg=./... -coverprofile $COVERAGE_OUT_FILE
+      - echo files $COVERAGE_OUT_FILE, $COVERAGE_HTML_FILE // -coverpkg=./... all files
+      - go test -v ./... -covermode=count -coverprofile=$COVERAGE_OUT_FILE
       - go tool cover -html $COVERAGE_OUT_FILE -o $COVERAGE_HTML_FILE
-      - go tool cover -func=$COVERAGE_OUT_FILE
+      - go tool cover -func=$COVERAGE_OUT_FILE -o=$COVERAGE_OUT_FILE
   clean:
     desc: Clean binaries and reports.
     cmds:
       - rm -rf $BUILD_FOLDER
+      - rm -rf $COVERAGE_OUT_FILE $COVERAGE_HTML_FILE
   download:
     desc: Run go mod tidy.
     cmds:
@@ -49,7 +51,7 @@ tasks:
   build:
     desc: Build the go EXECUTABLE.
     generates:
-      - app
+      - server
     interactive: true
     cmds:
       - mkdir -p $BUILD_FOLDER

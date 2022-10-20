@@ -27,13 +27,8 @@ jobs:
       - name: Test
         run: task test
 
-      - name: Run Test
+      - name: Coverage
         run: task coverage
-
-      - name: Run Test
-        run: |
-          go test -v ./... -covermode=count -coverprofile=coverage.out
-          go tool cover -func=coverage.out -o=coverage.out
 
       - name: Go Coverage Badge  # Pass the `coverage.out` output to this action
         uses: tj-actions/coverage-badge-go@v2
@@ -41,7 +36,7 @@ jobs:
           filename: coverage.out
 
       - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v11.1
+        uses: tj-actions/verify-changed-files@v12.0
         id: verify-changed-files
         with:
           files: README.md
