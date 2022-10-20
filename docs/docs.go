@@ -43,7 +43,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "",
-	BasePath:         "/",
+	BasePath:         "/.",
 	Schemes:          []string{},
 	Title:            "Golang Template API",
 	Description:      "This is a sample swagger for Golang Template API",

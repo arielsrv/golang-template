@@ -1,4 +1,4 @@
-basePath: /
+basePath: /.
 info:
   contact: {}
   description: This is a sample swagger for Golang Template API

@@ -2,8 +2,9 @@ package shared
 
 import (
 	"errors"
-	"github.com/gofiber/fiber/v2"
 	"net/http"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 type Error struct {

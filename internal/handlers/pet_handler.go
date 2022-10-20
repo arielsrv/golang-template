@@ -1,10 +1,11 @@
 package handlers
 
 import (
+	"net/http"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-template/internal/model"
 	"github.com/golang-template/internal/shared"
-	"net/http"
 )
 
 type IPetHandler interface {
@@ -21,7 +22,7 @@ func NewPetHandler() *PetHandler {
 	return &PetHandler{}
 }
 
-// GetPetByID godoc
+// GetPetByID godoc.
 func (p PetHandler) GetPetByID(ctx *fiber.Ctx) error {
 	model := new(model.PetModel)
 	model.ID = int64(1)
@@ -31,7 +32,7 @@ func (p PetHandler) GetPetByID(ctx *fiber.Ctx) error {
 		SendJSON(ctx, model)
 }
 
-// GetAll godoc
+// GetAll godoc.
 func (p PetHandler) GetAll(ctx *fiber.Ctx) error {
 	model := new([]model.PetModel)
 
@@ -43,7 +44,7 @@ func (p PetHandler) GetAll(ctx *fiber.Ctx) error {
 		SendJSON(ctx, model)
 }
 
-// Create godoc
+// Create godoc.
 func (p PetHandler) Create(ctx *fiber.Ctx) error {
 	var model model.PetModel
 

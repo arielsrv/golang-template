@@ -1,14 +1,15 @@
 package handlers_test
 
 import (
-	"github.com/golang-template/internal/handlers"
-	"github.com/golang-template/internal/server"
-	"github.com/stretchr/testify/mock"
-	"github.com/stretchr/testify/suite"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/golang-template/internal/handlers"
+	"github.com/golang-template/internal/server"
+	"github.com/stretchr/testify/mock"
+	"github.com/stretchr/testify/suite"
 )
 
 type PingHandlerSuite struct {

@@ -2,16 +2,17 @@ package handlers_test
 
 import (
 	"encoding/json"
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/golang-template/internal/handlers"
 	"github.com/golang-template/internal/model"
 	"github.com/golang-template/internal/shared"
 	"github.com/stretchr/testify/suite"
-	"io"
-	"net/http"
-	"net/http/httptest"
-	"testing"
 )
 
 type PetHandlerSuite struct {

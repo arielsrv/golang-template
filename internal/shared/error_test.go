@@ -3,12 +3,13 @@ package shared_test
 import (
 	"encoding/json"
 	"errors"
+	"net/http"
+	"testing"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-template/internal/shared"
 	"github.com/stretchr/testify/assert"
 	"github.com/valyala/fasthttp"
-	"net/http"
-	"testing"
 )
 
 func TestNewError(t *testing.T) {
