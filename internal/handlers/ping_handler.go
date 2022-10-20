@@ -26,7 +26,7 @@ func NewPingHandler(pingService services.IPingService) IPingHandler {
 // @Success     200
 // @Produce     plain
 // @Success     200 {string} string "pong"
-// @Router      /ping [get]
+// @Router      /ping [get].
 func (handler PingHandler) Ping(ctx *fiber.Ctx) error {
 	result := handler.pingService.Ping()
 	return ctx.SendString(result)

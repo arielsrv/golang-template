@@ -7,16 +7,20 @@ import (
 	"github.com/golang-template/internal/app"
 	"github.com/golang-template/internal/handlers"
 	"github.com/golang-template/internal/services"
-	"go.uber.org/fx"
 	"log"
 	"net/http"
 	"os"
+
+	_ "github.com/golang-template/docs"
+	"github.com/golang-template/internal/handlers"
+	"github.com/golang-template/internal/server"
+	"github.com/golang-template/internal/services"
 )
 
 // @title       Golang Template API
 // @version     1.0
 // @description This is a sample swagger for Golang Template API
-// @BasePath    /
+// @BasePath    /.
 func main() {
 	app := fx.New(
 		fx.Provide(services.NewPingService),
@@ -43,12 +47,7 @@ func NewHandlers(pingHandler handlers.IPingHandler) *Handlers {
 }
 
 func Start(lifecycle fx.Lifecycle, handlers *Handlers) *app.App {
-	app := app.New(app.Config{
-		Recovery:  true,
-		Swagger:   true,
-		RequestID: true,
-		Logger:    true,
-	})
+	app := server.New()
 	lifecycle.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
 			app.Add(http.MethodGet, "/ping", handlers.pingHandler.Ping)

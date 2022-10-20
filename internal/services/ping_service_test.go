@@ -1,9 +1,10 @@
 package services_test
 
 import (
+	"testing"
+
 	"github.com/golang-template/internal/services"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestPingService_Ping(t *testing.T) {
