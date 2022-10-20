@@ -3,10 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	_ "github.com/golang-template/docs"
-	"github.com/golang-template/internal/app"
-	"github.com/golang-template/internal/handlers"
-	"github.com/golang-template/internal/services"
 	"log"
 	"net/http"
 	"os"
@@ -15,6 +11,7 @@ import (
 	"github.com/golang-template/internal/handlers"
 	"github.com/golang-template/internal/server"
 	"github.com/golang-template/internal/services"
+	"go.uber.org/fx"
 )
 
 // @title       Golang Template API
@@ -27,11 +24,6 @@ func main() {
 		fx.Provide(handlers.NewPingHandler),
 		fx.Provide(NewHandlers),
 		fx.Invoke(Start),
-		// fx.WithLogger(
-		//	func() fxevent.Logger {
-		//		return fxevent.NopLogger
-		//	},
-		// ),
 	)
 	app.Run()
 }
@@ -46,7 +38,7 @@ func NewHandlers(pingHandler handlers.IPingHandler) *Handlers {
 	}
 }
 
-func Start(lifecycle fx.Lifecycle, handlers *Handlers) *app.App {
+func Start(lifecycle fx.Lifecycle, handlers *Handlers) *server.App {
 	app := server.New()
 	lifecycle.Append(fx.Hook{
 		OnStart: func(ctx context.Context) error {
