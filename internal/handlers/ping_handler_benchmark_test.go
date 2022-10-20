@@ -18,6 +18,7 @@ func BenchmarkPingHandler_Ping(b *testing.B) {
 		Logger: false,
 	})
 	app.Register(http.MethodGet, "/ping", pingHandler.Ping)
+	app.Build()
 
 	pingService.On("Ping").Return("pong")
 
