@@ -25,7 +25,7 @@ go install github.com/oligot/go-mod-upgrade@latest
 package main
 
 import (
-	_ "github.com/golang-template/docs" // only HandlerDefault
+	_ "github.com/golang-template/docs" // only for Swagger
 	"github.com/golang-template/internal/handlers"
 	"github.com/golang-template/internal/server"
 	"github.com/golang-template/internal/services"
