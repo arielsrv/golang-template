@@ -6,7 +6,6 @@ import (
 	"github.com/golang-template/internal/handlers"
 	"github.com/golang-template/internal/server"
 	"github.com/golang-template/internal/services"
-	"github.com/golang-template/internal/shared"
 	"log"
 	"net/http"
 	"os"
@@ -28,7 +27,6 @@ func main() {
 	app.Add(http.MethodGet, "/pets", petHandler.GetAll)
 	app.Add(http.MethodGet, "/pets/:petID", petHandler.GetPetByID)
 	app.Add(http.MethodPost, "/pets", petHandler.Create)
-	app.Add(http.MethodGet, "/swagger/*", swagger.HandlerDefault)
 
 	host := os.Getenv("HOST")
 	if host == "" {
