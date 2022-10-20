@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/golang-template/internal/handlers"
-	"github.com/golang-template/internal/server"
+	"github.com/internal/handlers"
+	"github.com/internal/server"
 )
 
 func BenchmarkPingHandler_Ping(b *testing.B) {

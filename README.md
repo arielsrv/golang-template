@@ -25,10 +25,10 @@ go install github.com/oligot/go-mod-upgrade@latest
 package main
 
 import (
-	_ "github.com/golang-template/docs" // only for Swagger
-	"github.com/golang-template/internal/handlers"
-	"github.com/golang-template/internal/server"
-	"github.com/golang-template/internal/services"
+	_ "github.com/docs" // only for Swagger
+	"github.com/internal/handlers"
+	"github.com/internal/server"
+	"github.com/internal/services"
 	"log"
 	"net/http"
 )
@@ -56,10 +56,10 @@ func main() {
 package handlers_test
 
 import (
-	_ "github.com/golang-template/docs" // only for swagger
-	"github.com/golang-template/internal/handlers"
-	"github.com/golang-template/internal/server"
-	"github.com/golang-template/internal/services"
+	_ "github.com/docs" // only for swagger
+	"github.com/internal/handlers"
+	"github.com/internal/server"
+	"github.com/internal/services"
 	"log"
 	"net/http"
 )
@@ -88,7 +88,7 @@ go test ./... -bench=.
 ````text
 goos: darwin
 goarch: arm64
-pkg: github.com/golang-template/internal/handlers
+pkg: github.com/internal/handlers
 BenchmarkPingHandler_Ping-8        22664             53260 ns/op
 ````
 
