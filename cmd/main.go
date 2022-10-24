@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"os"
 
-	_ "github.com/golang-template/docs"
-	"github.com/golang-template/internal/handlers"
-	"github.com/golang-template/internal/server"
-	"github.com/golang-template/internal/services"
+	_ "github.com/docs"
+	"github.com/internal/handlers"
+	"github.com/internal/server"
+	"github.com/internal/services"
 	"go.uber.org/fx"
 )
 

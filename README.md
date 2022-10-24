@@ -25,33 +25,28 @@ go install github.com/oligot/go-mod-upgrade@latest
 package main
 
 import (
-    _ "github.com/golang-template/docs"// only for swagger
-    "github.com/golang-template/internal/handlers"
-    "github.com/golang-template/internal/server"
-    "github.com/golang-template/internal/services"
-    "log"
-    "net/http"
-    "os"
+	_ "github.com/docs" // only for Swagger
+	"github.com/internal/handlers"
+	"github.com/internal/server"
+	"github.com/internal/services"
+	"log"
+	"net/http"
 )
 
 func main() {
-    // RESTful server config
-    app := server.New(server.Config{
-        Recovery:  true,
-        Swagger:   false,
-        RequestID: true,
-        Logger:    true,
-    })
+	app := server.New(server.Config{
+		Recovery:  true,
+		Swagger:   false,
+		RequestID: true,
+		Logger:    true,
+	})
 
-    // Handlers
-    pingService := services.NewPingService()
-    pingHandler := handlers.NewPingHandler(pingService)
+	pingService := services.NewPingService()
+	pingHandler := handlers.NewPingHandler(pingService)
 
-    // Routing
-    server.Add(http.MethodGet, "/ping", pingHandler.Ping)
+	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
 
-    // Start
-    log.Fatal(server.Start("127.0.0.1:8080"))
+	log.Fatal(app.Start("localhost:8080"))
 }
 ```
 
@@ -61,32 +56,28 @@ func main() {
 package handlers_test
 
 import (
-    "github.com/golang-template/internal/handlers"
-    "github.com/golang-template/internal/server"
-    "log"
-    "net/http"
-    "net/http/httptest"
-    "strconv"
-    "testing"
+	_ "github.com/docs" // only for swagger
+	"github.com/internal/handlers"
+	"github.com/internal/server"
+	"github.com/internal/services"
+	"log"
+	"net/http"
 )
 
-func BenchmarkpinghandlerPing(b *testing.B) {
-	pingService := new(MockPingService)
-	pingHandler := handlers.NewPingHandler(pingService)
+func main() {
 	app := server.New(server.Config{
-		Logger: false,
+		Recovery:  true,
+		Swagger:   false,
+		RequestID: true,
+		Logger:    true,
 	})
-	server.Add(http.MethodGet, "/ping", pingHandler.Ping)
 
-	pingService.On("Ping").Return("pong")
+	pingService := services.NewPingService()
+	pingHandler := handlers.NewPingHandler(pingService)
 
-	for i := 0; i < b.N; i++ {
-		request := httptest.NewRequest(http.MethodGet, "/ping", nil)
-		response, err := server.Test(request)
-		if err != nil || response.StatusCode != http.StatusOK {
-			log.Print("f[" + strconv.Itoa(i) + "] Status != OK (200)")
-		}
-	}
+	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
+
+	log.Fatal(app.Start("localhost:8080"))
 }
 ```
 
@@ -97,7 +88,7 @@ go test ./... -bench=.
 ````text
 goos: darwin
 goarch: arm64
-pkg: github.com/golang-template/internal/handlers
+pkg: github.com/internal/handlers
 BenchmarkPingHandler_Ping-8        22664             53260 ns/op
 ````
 

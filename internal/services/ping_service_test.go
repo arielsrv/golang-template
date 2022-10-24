@@ -3,7 +3,7 @@ package services_test
 import (
 	"testing"
 
-	"github.com/golang-template/internal/services"
+	"github.com/internal/services"
 	"github.com/stretchr/testify/assert"
 )
 

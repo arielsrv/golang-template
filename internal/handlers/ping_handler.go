@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/golang-template/internal/services"
+	"github.com/internal/services"
 )
 
 type IPingHandler interface {
