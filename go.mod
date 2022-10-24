@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/gofiber/fiber/v2 v2.39.0
-	github.com/gofiber/swagger v0.1.6
+	github.com/gofiber/swagger v0.1.7
 	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/swag v1.8.7
 )
