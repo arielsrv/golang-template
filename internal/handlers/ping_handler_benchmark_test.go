@@ -1,13 +1,14 @@
 package handlers_test
 
 import (
-	"github.com/golang-template/internal/handlers"
-	"github.com/golang-template/internal/server"
 	"log"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
 	"testing"
+
+	"github.com/internal/handlers"
+	"github.com/internal/server"
 )
 
 func BenchmarkPingHandler_Ping(b *testing.B) {
