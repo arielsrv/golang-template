@@ -1,13 +1,14 @@
 package tests_test
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/golang-template/internal/server"
-	"github.com/stretchr/testify/suite"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/internal/server"
+	"github.com/stretchr/testify/suite"
 )
 
 type PingHandlerSuite struct {
