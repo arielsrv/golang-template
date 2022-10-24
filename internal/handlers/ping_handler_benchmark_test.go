@@ -6,9 +6,6 @@ import (
 	"net/http/httptest"
 	"strconv"
 	"testing"
-
-	"github.com/golang-template/internal/handlers"
-	"github.com/golang-template/internal/server"
 )
 
 func BenchmarkPingHandler_Ping(b *testing.B) {

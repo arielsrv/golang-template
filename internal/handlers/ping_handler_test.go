@@ -5,11 +5,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/golang-template/internal/handlers"
-	"github.com/golang-template/internal/server"
-	"github.com/stretchr/testify/mock"
-	"github.com/stretchr/testify/suite"
 )
 
 type PingHandlerSuite struct {
