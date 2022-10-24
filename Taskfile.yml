@@ -47,7 +47,6 @@ tasks:
     cmds:
       - go install github.com/swaggo/swag/cmd/swag@latest
       - swag init -d ./,$SWAGGER_COVERAGE -o ../$SWAGGER_OUTPUT_FOLDER
-      - swag fmt
   build:
     desc: Build the go EXECUTABLE.
     generates:

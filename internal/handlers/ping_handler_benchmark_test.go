@@ -6,6 +6,9 @@ import (
 	"net/http/httptest"
 	"strconv"
 	"testing"
+
+	"github.com/internal/handlers"
+	"github.com/internal/server"
 )
 
 func BenchmarkPingHandler_Ping(b *testing.B) {

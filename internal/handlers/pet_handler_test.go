@@ -7,11 +7,12 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/internal/handlers"
+	"github.com/internal/model"
+	"github.com/internal/shared"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/golang-template/internal/handlers"
-	"github.com/golang-template/internal/model"
-	"github.com/golang-template/internal/shared"
 	"github.com/stretchr/testify/suite"
 )
 

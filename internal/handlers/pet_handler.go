@@ -3,9 +3,10 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/internal/model"
+	"github.com/internal/shared"
+
 	"github.com/gofiber/fiber/v2"
-	"github.com/golang-template/internal/model"
-	"github.com/golang-template/internal/shared"
 )
 
 type IPetHandler interface {

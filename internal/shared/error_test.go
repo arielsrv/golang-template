@@ -6,8 +6,9 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/internal/shared"
+
 	"github.com/gofiber/fiber/v2"
-	"github.com/golang-template/internal/shared"
 	"github.com/stretchr/testify/assert"
 	"github.com/valyala/fasthttp"
 )

@@ -5,6 +5,11 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/internal/handlers"
+	"github.com/internal/server"
+	"github.com/stretchr/testify/mock"
+	"github.com/stretchr/testify/suite"
 )
 
 type PingHandlerSuite struct {
