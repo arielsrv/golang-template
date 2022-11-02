@@ -9,6 +9,7 @@ env:
   COVERAGE_HTML_FILE: coverage.html
   SWAGGER_COVERAGE: "\
     ../internal/handlers,\
+    ../internal/shared,\
     ../internal/services"
   SWAGGER_OUTPUT_FOLDER: docs
 
@@ -68,10 +69,6 @@ tasks:
       - task: swagger
       - task: build
   default:
-    desc: Run [build] task.
-    cmds:
-      - task: build
-  variables:
     desc: Run [build] task.
     cmds:
       - task: build
