@@ -8,9 +8,8 @@ env:
   COVERAGE_OUT_FILE: coverage.out
   COVERAGE_HTML_FILE: coverage.html
   SWAGGER_COVERAGE: "\
-    ../internal/handlers,\
-    ../internal/shared,\
-    ../internal/services"
+    ../cmd,\
+    ../internal/handlers"
   SWAGGER_OUTPUT_FOLDER: docs
 
 tasks:
@@ -47,7 +46,7 @@ tasks:
     dir: cmd
     cmds:
       - go install github.com/swaggo/swag/cmd/swag@latest
-      - swag init -d ./,$SWAGGER_COVERAGE -o ../$SWAGGER_OUTPUT_FOLDER
+      - swag init -d $SWAGGER_COVERAGE -o ../$SWAGGER_OUTPUT_FOLDER
       - swag fmt
   build:
     desc: Build the go EXECUTABLE.

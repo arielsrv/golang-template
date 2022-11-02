@@ -6,8 +6,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/arielsrv/golang-toolkit/server"
+
 	"github.com/internal/handlers"
-	"github.com/internal/server"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 )

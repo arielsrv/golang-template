@@ -6,9 +6,10 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/arielsrv/golang-toolkit/server"
+
 	_ "github.com/docs"
 	"github.com/internal/handlers"
-	"github.com/internal/server"
 	"github.com/internal/services"
 )
 
@@ -17,12 +18,19 @@ import (
 // @description This is a sample swagger for Golang Template API
 // @BasePath    /
 func main() {
-	app := server.New()
+	app := server.New(server.Config{
+		Recovery:  true,
+		Swagger:   true,
+		RequestID: true,
+		Logger:    true,
+	})
 
 	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
 
-	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
+	server.RegisterHandler(pingHandler.Ping)
+
+	app.Add(http.MethodGet, "/ping", server.Use(handlers.PingHandler{}.Ping))
 
 	host := os.Getenv("HOST")
 	if host == "" {

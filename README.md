@@ -44,7 +44,12 @@ func main() {
 	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
 
-	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
+	// Handler registration
+	server.RegisterHandler(pingHandler.Ping)
+
+	// Action registration. You can do it in another file or function i.e routes.go.
+	// server.Use() don't require a reference, has a internal map that traduces function name to reference
+	app.Add(http.MethodGet, "/ping", server.Use(handlers.PingHandler{}.Ping))
 
 	log.Fatal(app.Start("localhost:8080"))
 }
@@ -160,6 +165,7 @@ pong
 ```
 
 ## example error response
+
 ```shell
 curl 'http://localhost:8080/ping' --verbose
 ```
