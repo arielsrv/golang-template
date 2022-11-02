@@ -3,6 +3,8 @@ package server
 import (
 	"net/http"
 
+	"github.com/internal/shared"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
@@ -25,6 +27,7 @@ func New(config ...Config) *App {
 	app := &App{
 		App: fiber.New(fiber.Config{
 			DisableStartupMessage: true,
+			ErrorHandler:          shared.ErrorHandler,
 		}),
 		config: Config{
 			Recovery:  true,
