@@ -158,3 +158,28 @@ curl 'http://localhost:8080/ping' --verbose
 * Connection #0 to host localhost left intact
 pong
 ```
+
+## example error response
+```shell
+curl 'http://localhost:8080/ping' --verbose
+```
+
+```text
+*   Trying 127.0.0.1:8080...
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> GET /pets HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.86.0
+> Accept: */*
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 500 Internal Server Error
+< Date: Wed, 02 Nov 2022 08:43:44 GMT
+< Content-Type: application/json
+< Content-Length: 50
+< X-Request-Id: e6d61deb-0bbf-40fe-882a-9b246a72194b
+<
+* Connection #0 to host localhost left intact
+{"status_code":500,"message":"unhealthy instance"}
+```
+

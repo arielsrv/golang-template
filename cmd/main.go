@@ -17,7 +17,7 @@ import (
 // @title       Golang Template API
 // @version     1.0
 // @description This is a sample swagger for Golang Template API
-// @BasePath    /.
+// @BasePath    /
 func main() {
 	app := fx.New(
 		fx.Provide(services.NewPingService),

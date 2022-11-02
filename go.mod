@@ -7,7 +7,6 @@ require (
 	github.com/gofiber/swagger v0.1.7
 	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/swag v1.8.7
-	go.uber.org/fx v1.18.2
 )
 
 require (
@@ -29,7 +28,6 @@ require (
 	github.com/stretchr/objx v0.5.0 // indirect
 	github.com/swaggo/files v0.0.0-20220728132757-551d4a08d97a // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	github.com/valyala/fasthttp v1.40.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	go.uber.org/atomic v1.6.0 // indirect
 	go.uber.org/dig v1.15.0 // indirect
