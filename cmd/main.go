@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,6 +11,7 @@ import (
 	"github.com/internal/handlers"
 	"github.com/internal/server"
 	"github.com/internal/services"
+	"go.uber.org/fx"
 )
 
 // @title       Golang Template API
@@ -17,26 +19,51 @@ import (
 // @description This is a sample swagger for Golang Template API
 // @BasePath    /
 func main() {
+	app := fx.New(
+		fx.Provide(services.NewPingService),
+		fx.Provide(handlers.NewPingHandler),
+		fx.Provide(NewHandlers),
+		fx.Invoke(Start),
+	)
+	app.Run()
+}
+
+type Handlers struct {
+	pingHandler handlers.IPingHandler
+}
+
+func NewHandlers(pingHandler handlers.IPingHandler) *Handlers {
+	return &Handlers{
+		pingHandler: pingHandler,
+	}
+}
+
+func Start(lifecycle fx.Lifecycle, handlers *Handlers) *server.App {
 	app := server.New()
+	lifecycle.Append(fx.Hook{
+		OnStart: func(ctx context.Context) error {
+			app.Add(http.MethodGet, "/ping", handlers.pingHandler.Ping)
 
-	pingService := services.NewPingService()
-	pingHandler := handlers.NewPingHandler(pingService)
+			host := os.Getenv("HOST")
+			if host == "" {
+				host = "127.0.0.1"
+			}
 
-	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
+			port := os.Getenv("PORT")
+			if port == "" {
+				port = "8080"
+			}
 
-	host := os.Getenv("HOST")
-	if host == "" {
-		host = "127.0.0.1"
-	}
+			address := fmt.Sprintf("%s:%s", host, port)
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
-	address := fmt.Sprintf("%s:%s", host, port)
-
-	log.Printf("Listening on port %s", port)
-	log.Printf("Open http://%s:%s/ping in the browser", host, port)
-	log.Fatal(app.Start(address))
+			log.Printf("Listening on port %s", port)
+			log.Printf("Open http://%s:%s/ping in the browser", host, port)
+			go app.Start(address) //nolint:nolintlint,errcheck
+			return nil
+		},
+		OnStop: func(ctx context.Context) error {
+			return app.Shutdown()
+		},
+	})
+	return app
 }
