@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/arielsrv/golang-toolkit/server v0.0.1
-	github.com/gofiber/fiber/v2 v2.40.0
+	github.com/gofiber/fiber/v2 v2.40.1
 	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/swag v1.8.7
 )
