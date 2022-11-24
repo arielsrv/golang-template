@@ -39,7 +39,7 @@ func main() {
 }
 ```
 
-### boostrap
+### bootsrap
 
 ```go
 package app
