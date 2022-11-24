@@ -20,59 +20,45 @@ go install github.com/oligot/go-mod-upgrade@latest
 
 ## template
 
-```go
+### main
 
+```go
 package main
 
 import (
-	_ "github.com/docs" // only for Swagger
-	"github.com/internal/handlers"
-	"github.com/internal/server"
-	"github.com/internal/services"
 	"log"
-	"net/http"
+
+	"github.com/src/main/app"
+	_ "github.com/src/resources/docs"
 )
 
 func main() {
-	app := server.New(server.Config{
-		Recovery:  true,
-		Swagger:   false,
-		RequestID: true,
-		Logger:    true,
-	})
-
-	pingService := services.NewPingService()
-	pingHandler := handlers.NewPingHandler(pingService)
-
-	// Handler registration
-	server.RegisterHandler(pingHandler.Ping)
-
-	// Action registration. You can do it in another file or function i.e routes.go.
-	// server.Use() don't require a reference, has a internal map that traduces function name to reference
-	app.Add(http.MethodGet, "/ping", server.Use(handlers.PingHandler{}.Ping))
-
-	log.Fatal(app.Start("localhost:8080"))
+	if err := app.Run(); err != nil {
+		log.Fatal(err)
+	}
 }
 ```
 
-## benchmark
+### boostrap
 
 ```go
-package handlers_test
+package app
 
 import (
-	_ "github.com/docs" // only for swagger
-	"github.com/internal/handlers"
-	"github.com/internal/server"
-	"github.com/internal/services"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
+
+	"github.com/src/main/app/handlers"
+	"github.com/src/main/app/server"
+	"github.com/src/main/app/services"
 )
 
-func main() {
+func Run() error {
 	app := server.New(server.Config{
 		Recovery:  true,
-		Swagger:   false,
+		Swagger:   true,
 		RequestID: true,
 		Logger:    true,
 	})
@@ -80,9 +66,25 @@ func main() {
 	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
 
-	app.Add(http.MethodGet, "/ping", pingHandler.Ping)
+	server.RegisterHandler(pingHandler.Ping)
 
-	log.Fatal(app.Start("localhost:8080"))
+	app.Add(http.MethodGet, "/ping", server.Use(handlers.PingHandler{}.Ping))
+
+	host := os.Getenv("HOST")
+	if host == "" {
+		host = "127.0.0.1"
+	}
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	address := fmt.Sprintf("%s:%s", host, port)
+
+	log.Printf("Listening on port %s", port)
+	log.Printf("Open http://%s:%s/ping in the browser", host, port)
+	return app.Listen(address)
 }
 ```
 

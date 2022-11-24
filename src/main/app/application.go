@@ -1,4 +1,4 @@
-package main
+package app
 
 import (
 	"fmt"
@@ -6,18 +6,12 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/arielsrv/golang-toolkit/server"
-
-	_ "github.com/docs"
-	"github.com/internal/handlers"
-	"github.com/internal/services"
+	"github.com/src/main/app/handlers"
+	"github.com/src/main/app/server"
+	"github.com/src/main/app/services"
 )
 
-// @title       Golang Template API
-// @version     1.0
-// @description This is a sample swagger for Golang Template API
-// @BasePath    /
-func main() {
+func Run() error {
 	app := server.New(server.Config{
 		Recovery:  true,
 		Swagger:   true,
@@ -46,5 +40,5 @@ func main() {
 
 	log.Printf("Listening on port %s", port)
 	log.Printf("Open http://%s:%s/ping in the browser", host, port)
-	log.Fatal(app.Start(address))
+	return app.Listen(address)
 }

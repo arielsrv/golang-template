@@ -2,15 +2,14 @@
 version: '3'
 
 env:
-  ENTRY_POINT: cmd/main.go
+  ENTRY_POINT: program
+  SOURCE_FOLDER: src/main
   BUILD_FOLDER: build
-  EXECUTABLE: server
   COVERAGE_OUT_FILE: coverage.out
   COVERAGE_HTML_FILE: coverage.html
-  SWAGGER_COVERAGE: "\
-    ../cmd,\
-    ../internal/handlers"
-  SWAGGER_OUTPUT_FOLDER: docs
+  SWAGGER_INPUT_FOLDER: src/main
+  SWAGGER_OUTPUT_FOLDER: src/resources/docs
+  ORM_OUTPUT_FOLDER: src/main/app/ent
 
 tasks:
   lint:
@@ -20,12 +19,12 @@ tasks:
   test:
     desc: Run test.
     cmds:
+      # - go test -race ./...
       - go test ./...
   coverage:
     desc: Makes report coverage.
     cmds:
-      - echo files $COVERAGE_OUT_FILE, $COVERAGE_HTML_FILE // -coverpkg=./... all files
-      - go test -v ./... -covermode=count -coverprofile=$COVERAGE_OUT_FILE
+      - go test ./... -covermode=count -coverprofile=$COVERAGE_OUT_FILE
       - go tool cover -html $COVERAGE_OUT_FILE -o $COVERAGE_HTML_FILE
       - go tool cover -func=$COVERAGE_OUT_FILE -o=$COVERAGE_OUT_FILE
   clean:
@@ -43,30 +42,25 @@ tasks:
       - go-mod-upgrade
   swagger:
     desc: Generate RESTful API documentation with Swagger.
-    dir: cmd
     cmds:
       - go install github.com/swaggo/swag/cmd/swag@latest
-      - swag init -d $SWAGGER_COVERAGE -o ../$SWAGGER_OUTPUT_FOLDER
-      - swag fmt
+      - swag init -d $SWAGGER_INPUT_FOLDER -g $ENTRY_POINT.go -o $SWAGGER_OUTPUT_FOLDER --parseGoList
   build:
     desc: Build the go EXECUTABLE.
     generates:
       - server
     interactive: true
     cmds:
-      - mkdir -p $BUILD_FOLDER
-      - go build -v $ENTRY_POINT
-      - mv main $BUILD_FOLDER/$EXECUTABLE
+      - mkdir -p $BUILD_FOLDER/..
+      - go build -v $SOURCE_FOLDER/$ENTRY_POINT.go
+      - mv $ENTRY_POINT $BUILD_FOLDER
   all:
     desc: Run relevant tasks.
     cmds:
-      - task: clean
       - task: download
       - task: lint
-      - task: test
-      - task: coverage
       - task: swagger
-      - task: build
+      - task: test
   default:
     desc: Run [build] task.
     cmds:
@@ -75,4 +69,4 @@ tasks:
     desc: Run $ENTRY_POINT
     cmds:
       - echo '{{OS}}'
-      - ./$BUILD_FOLDER/$EXECUTABLE
+      - ./$BUILD_FOLDER/$ENTRY_POINT

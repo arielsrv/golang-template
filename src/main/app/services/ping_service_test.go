@@ -3,7 +3,8 @@ package services_test
 import (
 	"testing"
 
-	"github.com/internal/services"
+	"github.com/src/main/app/services"
+
 	"github.com/stretchr/testify/assert"
 )
 
