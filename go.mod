@@ -7,7 +7,7 @@ require (
 	github.com/gofiber/swagger v0.1.8
 	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/swag v1.8.8
-	github.com/valyala/fasthttp v1.41.0
+	github.com/valyala/fasthttp v1.42.0
 )
 
 require (
