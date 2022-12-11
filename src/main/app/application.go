@@ -22,9 +22,9 @@ func Run() error {
 	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
 
-	server.RegisterHandler(pingHandler.Ping)
+	server.RegisterHandler(pingHandler)
 
-	app.Add(http.MethodGet, "/ping", server.Use(handlers.PingHandler{}.Ping))
+	server.Register(http.MethodGet, "/ping", server.Resolve[handlers.PingHandler]().Ping)
 
 	host := os.Getenv("HOST")
 	if host == "" {

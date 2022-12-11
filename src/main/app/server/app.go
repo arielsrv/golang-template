@@ -12,15 +12,20 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/gofiber/swagger"
-
-	"runtime"
 )
 
-var routes = make(map[string]func(ctx *fiber.Ctx) error)
+var handlers = make(map[string]any)
+var routes []Route
 
 type App struct {
 	*fiber.App
 	config Config
+}
+
+type Route struct {
+	Verb   string
+	Path   string
+	Action func(ctx *fiber.Ctx) error
 }
 
 func (app *App) Start(addr string) error {
@@ -76,16 +81,31 @@ type Config struct {
 	Logger    bool
 }
 
-func RegisterHandler(action func(ctx *fiber.Ctx) error) {
-	name := getFuncName(action)
-	routes[name] = action
+func Register(verb string, path string, action func(ctx *fiber.Ctx) error) {
+	route := &Route{
+		Verb:   verb,
+		Path:   path,
+		Action: action,
+	}
+	routes = append(routes, *route)
 }
 
-func Use(action func(ctx *fiber.Ctx) error) func(ctx *fiber.Ctx) error {
-	name := getFuncName(action)
-	return routes[name]
+func RegisterHandler(handler any) {
+	key := getType(handler)
+	handlers[key] = handler
 }
 
-func getFuncName(action func(ctx *fiber.Ctx) error) string {
-	return runtime.FuncForPC(reflect.ValueOf(action).Pointer()).Name()
+func Resolve[T any](_ ...T) *T {
+	args := make([]T, 1)
+	key := getType(args[0])
+	return handlers[key].(*T)
+}
+
+func getType(value any) string {
+	name := reflect.TypeOf(value)
+	if name.Kind() == reflect.Ptr {
+		name = name.Elem()
+	}
+
+	return name.String()
 }
