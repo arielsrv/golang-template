@@ -40,5 +40,6 @@ func Run() error {
 
 	log.Printf("Listening on port %s", port)
 	log.Printf("Open http://%s:%s/ping in the browser", host, port)
-	return app.Listen(address)
+
+	return app.Start(address)
 }

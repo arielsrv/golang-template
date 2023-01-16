@@ -29,6 +29,9 @@ type Route struct {
 }
 
 func (app *App) Start(addr string) error {
+	for _, route := range routes {
+		app.Add(route.Verb, route.Path, route.Action)
+	}
 	return app.Listen(addr)
 }
 
