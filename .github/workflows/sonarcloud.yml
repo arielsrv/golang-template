@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-go@v2
       - run: |
           go version &&
-          go test -covermode=atomic -coverprofile=coverage.out ./... &&
+          go test -covermode=atomic -coverprofile=sonar.coverage.out ./... &&
           ls -lah
           exit 0
       - name: SonarCloud Scan
