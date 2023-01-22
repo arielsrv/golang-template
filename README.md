@@ -13,6 +13,8 @@
 
 ### For macOs
 
+- [Homebrew](https://brew.sh/index_es)
+
 ```shell
 brew install go-task/tap/go-task
 brew install golangci-lint
