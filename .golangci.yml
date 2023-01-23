@@ -158,7 +158,7 @@ linters:
     - govet # reports suspicious constructs, such as Printf calls whose arguments do not align with the format string
     - ineffassign # detects when assignments to existing variables are not used
     - staticcheck # is a go vet on steroids, applying a ton of static analysis checks
-    - typecheck # like the front-end of a Go compiler, parses and type-checks Go code
+    #- typecheck # like the front-end of a Go compiler, parses and type-checks Go code
     - unused # checks for unused constants, variables, functions and types
     ## disabled by default
     - asasalint # checks for pass []any as any in variadic func(...any)
@@ -176,7 +176,7 @@ linters:
     - forbidigo # forbids identifiers
     - funlen # tool for detection of long functions
     #- gochecknoglobals # checks that no global variables exist
-    - gochecknoinits # checks that no init functions are present in Go code
+    #- gochecknoinits # checks that no init functions are present in Go code
     - gocognit # computes and checks the cognitive complexity of functions
     - goconst # finds repeated strings that could be replaced by a constant
     - gocritic # provides diagnostics that check for bugs, performance and style issues

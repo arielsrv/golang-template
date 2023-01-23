@@ -1,0 +1,2 @@
+api.url: https://go-fiber-app.herokuapp.com/
+app.env: prod

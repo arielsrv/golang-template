@@ -5,6 +5,9 @@ import (
 	"net/http"
 	"reflect"
 
+	properties "github.com/src/main/app/config"
+	"github.com/src/main/app/config/env"
+
 	"github.com/src/main/app/server/errors"
 
 	"github.com/gofiber/fiber/v2"
@@ -70,8 +73,14 @@ func New(config ...Config) *App {
 	}
 
 	if app.config.Swagger {
+		if !env.IsDev() {
+			app.Get("/swagger/*", swagger.New(swagger.Config{ // custom
+				URL: properties.String("api.url") + "swagger/doc.json",
+			}))
+		} else {
+			app.Add(http.MethodGet, "/swagger/*", swagger.HandlerDefault)
+		}
 		log.Println("Swagger enabled")
-		app.Add(http.MethodGet, "/swagger/*", swagger.HandlerDefault)
 	}
 
 	return app

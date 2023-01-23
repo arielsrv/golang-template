@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 
+	"github.com/src/main/app/config"
+	"github.com/src/main/app/config/env"
 	"github.com/src/main/app/handlers"
 	"github.com/src/main/app/server"
 	"github.com/src/main/app/services"
@@ -26,13 +27,15 @@ func Run() error {
 
 	server.Register(http.MethodGet, "/ping", server.Resolve[handlers.PingHandler]().Ping)
 
-	host := os.Getenv("HOST")
-	if host == "" {
+	host := config.String("HOST")
+	if env.IsEmpty(host) && !env.IsDev() {
 		host = "0.0.0.0"
+	} else {
+		host = "127.0.0.1"
 	}
 
-	port := os.Getenv("PORT")
-	if port == "" {
+	port := config.String("PORT")
+	if env.IsEmpty(port) {
 		port = "8080"
 	}
 

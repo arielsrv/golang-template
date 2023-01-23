@@ -1,4 +1,4 @@
-basePath: /
+basePath: /.
 info:
   contact: {}
   description: This is a sample golang template api. Have fun.
