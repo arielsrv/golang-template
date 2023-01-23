@@ -8,7 +8,8 @@ import (
 )
 
 // @title Golang Template API
-// @description This is a sample golang template api.
+// @description This is a sample golang template api. Have fun.
+// @basePath /
 func main() {
 	if err := app.Run(); err != nil {
 		log.Fatal(err)

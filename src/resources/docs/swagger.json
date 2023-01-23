@@ -1,10 +1,11 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample golang template api.",
+        "description": "This is a sample golang template api. Have fun.",
         "title": "Golang Template API",
         "contact": {}
     },
+    "basePath": "/",
     "paths": {
         "/ping": {
             "get": {

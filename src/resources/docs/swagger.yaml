@@ -1,6 +1,7 @@
+basePath: /
 info:
   contact: {}
-  description: This is a sample golang template api.
+  description: This is a sample golang template api. Have fun.
   title: Golang Template API
 paths:
   /ping:

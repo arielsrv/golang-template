@@ -28,7 +28,7 @@ func Run() error {
 
 	host := os.Getenv("HOST")
 	if host == "" {
-		host = "0.0.0.0"
+		host = "127.0.0.1"
 	}
 
 	port := os.Getenv("PORT")
