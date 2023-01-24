@@ -26,7 +26,6 @@ func init() {
 	err := os.Chdir(root)
 	if err != nil {
 		showWd()
-		root = path.Join(path.Dir(caller), "app/src")
 		wd, wdErr := os.Getwd()
 		if wdErr != nil {
 			log.Fatalln(err)
@@ -73,7 +72,7 @@ func showWd() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	log.Print("INFO: Working directory: " + wd)
+	log.Print("INFO: working directory: " + wd)
 }
 
 func String(key string) string {
