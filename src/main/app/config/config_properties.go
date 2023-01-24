@@ -24,6 +24,7 @@ func init() {
 	root := path.Join(path.Dir(caller), "../../..")
 	err := os.Chdir(root)
 	if err != nil {
+		log.Println(root)
 		log.Fatalln(err)
 	}
 
