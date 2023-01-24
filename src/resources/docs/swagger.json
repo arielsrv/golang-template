@@ -5,7 +5,7 @@
         "title": "Golang Template API",
         "contact": {}
     },
-    "host": "https://go-fiber-app.herokuapp.com/",
+    "host": "https://go-fiber-app.herokuapp.com",
     "basePath": "/",
     "paths": {
         "/ping": {
