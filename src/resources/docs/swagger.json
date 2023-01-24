@@ -3,7 +3,8 @@
     "info": {
         "description": "This is a sample golang template api. Have fun.",
         "title": "Golang Template API",
-        "contact": {}
+        "contact": {},
+        "version": "v1"
     },
     "host": "go-fiber-app.herokuapp.com",
     "basePath": "/",

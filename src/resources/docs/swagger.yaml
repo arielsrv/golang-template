@@ -4,6 +4,7 @@ info:
   contact: {}
   description: This is a sample golang template api. Have fun.
   title: Golang Template API
+  version: v1
 paths:
   /ping:
     get:

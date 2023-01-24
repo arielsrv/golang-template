@@ -18,6 +18,7 @@ func Run() error {
 		Swagger:   true,
 		RequestID: true,
 		Logger:    true,
+		Cors:      true,
 	})
 
 	pingService := services.NewPingService()
