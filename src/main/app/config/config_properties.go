@@ -27,9 +27,11 @@ func init() {
 	if err != nil {
 		showWd()
 		root = path.Join(path.Dir(caller), "app/src")
-		if err != nil {
+		wd, wdErr := os.Getwd()
+		if wdErr != nil {
 			log.Fatalln(err)
 		}
+		root = path.Join(wd, "/src")
 	}
 
 	propertiesPath, environment, scope :=
