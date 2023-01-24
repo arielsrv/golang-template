@@ -9,7 +9,8 @@ import (
 
 // @title Golang Template API
 // @description This is a sample golang template api. Have fun.
-// @BasePath /
+// @host https://go-fiber-app.herokuapp.com/
+// @basePath /
 func main() {
 	if err := app.Run(); err != nil {
 		log.Fatal(err)

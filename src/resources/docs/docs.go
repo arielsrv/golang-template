@@ -42,7 +42,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "",
-	Host:             "",
+	Host:             "https://go-fiber-app.herokuapp.com/",
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "Golang Template API",
