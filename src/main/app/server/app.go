@@ -75,7 +75,7 @@ func New(config ...Config) *App {
 	if app.config.Swagger {
 		if !env.IsDev() {
 			app.Get("/swagger/*", swagger.New(swagger.Config{ // custom
-				URL: properties.String("api.url") + "swagger/doc.json",
+				URL: properties.String("api.url") + "doc.json",
 			}))
 		} else {
 			app.Add(http.MethodGet, "/swagger/*", swagger.HandlerDefault)
