@@ -1,5 +1,5 @@
 basePath: /
-host: https://go-fiber-app.herokuapp.com
+host: go-fiber-app.herokuapp.com
 info:
   contact: {}
   description: This is a sample golang template api. Have fun.
