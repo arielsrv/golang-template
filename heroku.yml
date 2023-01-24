@@ -1,0 +1,1 @@
+build:  command:    - go build -v src/main/program.gorun:  web: build/program
