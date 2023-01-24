@@ -19,13 +19,13 @@ const (
 )
 
 func init() {
-	log.Println("INFO: Trying to load config ...")
+	log.Println("INFO: trying to load config ...")
 	_, caller, _, _ := runtime.Caller(0)
 	root := path.Join(path.Dir(caller), "../../..")
+	log.Println("INFO: path: " + root)
 	err := os.Chdir(root)
 	if err != nil {
-		root = path.Join(path.Dir(caller))
-		err = os.Chdir(root)
+		err = os.Chdir("../../")
 		if err != nil {
 			log.Fatalln(err)
 		}
