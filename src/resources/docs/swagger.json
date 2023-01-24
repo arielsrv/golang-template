@@ -5,7 +5,6 @@
         "title": "Golang Template API",
         "contact": {}
     },
-    "basePath": "/.",
     "paths": {
         "/ping": {
             "get": {
