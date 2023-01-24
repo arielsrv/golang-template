@@ -1,11 +1,12 @@
 package server
 
 import (
+	"fmt"
+	properties "github.com/src/main/app/config"
 	"log"
 	"net/http"
 	"reflect"
 
-	properties "github.com/src/main/app/config"
 	"github.com/src/main/app/config/env"
 
 	"github.com/src/main/app/server/errors"
@@ -75,7 +76,10 @@ func New(config ...Config) *App {
 	if app.config.Swagger {
 		if !env.IsDev() {
 			app.Get("/swagger/*", swagger.New(swagger.Config{ // custom
-				URL: properties.String("api.url") + "swagger/doc.json",
+				URL: fmt.Sprintf("%s://%s.%s/swagger/doc.json",
+					properties.String("app.protocol"),
+					env.GetScope(),
+					properties.String("app.domain")),
 			}))
 		} else {
 			app.Add(http.MethodGet, "/swagger/*", swagger.HandlerDefault)
