@@ -19,14 +19,13 @@ const (
 )
 
 func init() {
+	showWd()
 	log.Println("INFO: trying to load config ...")
 	_, caller, _, _ := runtime.Caller(0)
-	log.Println(path.Dir(""))
 	root := path.Join(path.Dir(caller), "../../..")
 	err := os.Chdir(root)
 	if err != nil {
-		wd, err := os.Getwd()
-		log.Println(wd)
+		showWd()
 		err = os.Chdir("../../")
 		if err != nil {
 			log.Fatalln(err)
@@ -65,6 +64,14 @@ func init() {
 	}
 
 	log.Printf("INFO: ENV: %s, SCOPE: %s", environment, scope)
+}
+
+func showWd() {
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	log.Print("INFO: Working directory: " + wd)
 }
 
 func String(key string) string {
