@@ -26,7 +26,7 @@ func init() {
 	err := os.Chdir(root)
 	if err != nil {
 		showWd()
-		err = os.Chdir("../../")
+		root = path.Join(path.Dir(caller), "app/src")
 		if err != nil {
 			log.Fatalln(err)
 		}
