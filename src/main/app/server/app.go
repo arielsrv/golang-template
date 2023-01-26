@@ -2,10 +2,12 @@ package server
 
 import (
 	"fmt"
-	properties "github.com/src/main/app/config"
 	"log"
 	"net/http"
 	"reflect"
+
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	properties "github.com/src/main/app/config"
 
 	"github.com/src/main/app/config/env"
 
@@ -73,6 +75,10 @@ func New(config ...Config) *App {
 		}))
 	}
 
+	if app.config.Cors {
+		app.Use(cors.New())
+	}
+
 	if app.config.Swagger {
 		if !env.IsDev() {
 			app.Get("/swagger/*", swagger.New(swagger.Config{ // custom
@@ -95,6 +101,7 @@ type Config struct {
 	Swagger   bool
 	RequestID bool
 	Logger    bool
+	Cors      bool
 }
 
 func Register(verb string, path string, action func(ctx *fiber.Ctx) error) {
