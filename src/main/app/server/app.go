@@ -99,6 +99,9 @@ func New(config ...Config) *App {
 
 	if app.config.NewRelic && !env.IsDev() {
 		newRelicLicense := properties.String("NEWRELIC_LICENSE")
+		if env.IsEmpty(newRelicLicense) {
+			log.Fatalln("newrelic license key not found")
+		}
 		nrApp, err := newrelic.NewApplication(
 			newrelic.ConfigAppName("Application Name"),
 			newrelic.ConfigLicense(os.Getenv(newRelicLicense)),
