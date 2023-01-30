@@ -4,7 +4,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"reflect"
+
+	"github.com/arielsrv/nrfiber"
+	"github.com/newrelic/go-agent/v3/newrelic"
 
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	properties "github.com/src/main/app/config"
@@ -93,6 +97,23 @@ func New(config ...Config) *App {
 		log.Println("Swagger enabled")
 	}
 
+	if app.config.NewRelic && !env.IsDev() {
+		newRelicLicense := properties.String("NEWRELIC_LICENSE")
+		nrApp, err := newrelic.NewApplication(
+			newrelic.ConfigAppName("Application Name"),
+			newrelic.ConfigLicense(os.Getenv(newRelicLicense)),
+			newrelic.ConfigDebugLogger(os.Stdout),
+		)
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		app.Use(nrfiber.New(nrfiber.Config{
+			NewRelicApp: nrApp,
+		}))
+	}
+
 	return app
 }
 
@@ -102,6 +123,7 @@ type Config struct {
 	RequestID bool
 	Logger    bool
 	Cors      bool
+	NewRelic  bool
 }
 
 func Register(verb string, path string, action func(ctx *fiber.Ctx) error) {
