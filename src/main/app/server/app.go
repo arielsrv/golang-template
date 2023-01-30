@@ -104,7 +104,7 @@ func New(config ...Config) *App {
 		}
 		nrApp, err := newrelic.NewApplication(
 			newrelic.ConfigAppName("Application Name"),
-			newrelic.ConfigLicense(os.Getenv(newRelicLicense)),
+			newrelic.ConfigLicense(newRelicLicense),
 			newrelic.ConfigDebugLogger(os.Stdout),
 		)
 
