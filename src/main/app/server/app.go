@@ -2,13 +2,12 @@ package server
 
 import (
 	"fmt"
+	"github.com/arielsrv/nrfiber"
+	"github.com/newrelic/go-agent/v3/newrelic"
 	"log"
 	"net/http"
 	"os"
 	"reflect"
-
-	"github.com/arielsrv/nrfiber"
-	"github.com/newrelic/go-agent/v3/newrelic"
 
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	properties "github.com/src/main/app/config"
@@ -99,22 +98,22 @@ func New(config ...Config) *App {
 
 	if app.config.NewRelic && !env.IsDev() {
 		newRelicLicense := properties.String("NEWRELIC_LICENSE")
-		if env.IsEmpty(newRelicLicense) {
-			log.Fatalln("newrelic license key not found")
-		}
+		if !env.IsEmpty(newRelicLicense) {
+			nrApp, err := newrelic.NewApplication(
+				newrelic.ConfigAppName("golang-template"),
+				newrelic.ConfigLicense(newRelicLicense),
+				newrelic.ConfigDebugLogger(os.Stdout),
+			)
+			if err != nil {
+				log.Fatalf("failed to load newrelic config %s", err)
+			}
 
-		nrApp, err := newrelic.NewApplication(
-			newrelic.ConfigAppName("golang-template"),
-			newrelic.ConfigLicense(newRelicLicense),
-			newrelic.ConfigDebugLogger(os.Stdout),
-		)
-		if err != nil {
-			log.Fatalf("failed to load newrelic config %s", err)
+			app.Use(nrfiber.New(nrfiber.Config{
+				NewRelicApp: nrApp,
+			}))
+		} else {
+			log.Println("newrelic disabled, newrelic license key not found")
 		}
-
-		app.Use(nrfiber.New(nrfiber.Config{
-			NewRelicApp: nrApp,
-		}))
 	}
 
 	return app
