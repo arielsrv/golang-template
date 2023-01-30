@@ -102,14 +102,14 @@ func New(config ...Config) *App {
 		if env.IsEmpty(newRelicLicense) {
 			log.Fatalln("newrelic license key not found")
 		}
+
 		nrApp, err := newrelic.NewApplication(
 			newrelic.ConfigAppName("golang-template"),
 			newrelic.ConfigLicense(newRelicLicense),
 			newrelic.ConfigDebugLogger(os.Stdout),
 		)
-
 		if err != nil {
-			log.Fatalln(err)
+			log.Fatalf("failed to load newrelic config %s", err)
 		}
 
 		app.Use(nrfiber.New(nrfiber.Config{
