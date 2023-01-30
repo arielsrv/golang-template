@@ -103,7 +103,7 @@ func New(config ...Config) *App {
 			log.Fatalln("newrelic license key not found")
 		}
 		nrApp, err := newrelic.NewApplication(
-			newrelic.ConfigAppName("Application Name"),
+			newrelic.ConfigAppName("golang-template"),
 			newrelic.ConfigLicense(newRelicLicense),
 			newrelic.ConfigDebugLogger(os.Stdout),
 		)
