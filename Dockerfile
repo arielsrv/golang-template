@@ -12,4 +12,4 @@ ENV SCOPE=docker
 
 EXPOSE 8080 8080
 
-# ENTRYPOINT ["./build/program"]
+ENTRYPOINT ["./build/program"]
