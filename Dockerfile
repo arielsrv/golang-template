@@ -8,8 +8,9 @@ WORKDIR /app
 
 RUN task
 
-ENV SCOPE=docker
+ENV SCOPE=go-fiber-app
 
-EXPOSE 8080 8080
+ENV PORT 8080
+EXPOSE 8080
 
-ENTRYPOINT ["./build/program"]
+CMD ["./build/program"]
