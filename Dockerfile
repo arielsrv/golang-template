@@ -10,6 +10,4 @@ RUN task
 
 ENV SCOPE=go-fiber-app
 
-EXPOSE 8080
-
-CMD ["./app/build/program"]
+ENTRYPOINT [".build/program"]
