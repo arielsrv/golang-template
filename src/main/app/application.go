@@ -25,7 +25,6 @@ func Run() error {
 	pingHandler := handlers.NewPingHandler(pingService)
 
 	server.RegisterHandler(pingHandler)
-
 	server.Register(http.MethodGet, "/ping", server.Resolve[handlers.PingHandler]().Ping)
 
 	host := config.String("HOST")
