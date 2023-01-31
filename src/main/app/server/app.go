@@ -97,7 +97,7 @@ func New(config ...Config) *App {
 	}
 
 	if app.config.NewRelic && !env.IsDev() {
-		newRelicLicense := properties.String("NEWRELIC_LICENSE")
+		newRelicLicense := properties.String("NEW_RELIC_LICENSE_KEY")
 		if !env.IsEmpty(newRelicLicense) {
 			nrApp, err := newrelic.NewApplication(
 				newrelic.ConfigAppName("golang-template"),
