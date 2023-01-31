@@ -10,4 +10,4 @@ RUN task
 
 ENV SCOPE=go-fiber-app
 
-ENTRYPOINT [".build/program"]
+ENTRYPOINT ["./build/program"]
