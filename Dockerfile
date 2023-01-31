@@ -12,4 +12,4 @@ ENV SCOPE=go-fiber-app
 
 EXPOSE 8080
 
-CMD ["./build/program"]
+CMD ["./app/build/program"]
