@@ -22,7 +22,7 @@ jobs:
           cache-dependency-path: go.sum
 
       - name: arduino/setup-task
-        uses: arduino/setup-task@1.0.2
+        uses: arduino/setup-task@v1.0.3
 
       - name: Build
         run: task build
