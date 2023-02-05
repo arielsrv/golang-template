@@ -7,7 +7,7 @@ import (
 	"path"
 	"runtime"
 
-	"github.com/go-chassis/go-archaius"
+	config "github.com/go-chassis/go-archaius"
 
 	"github.com/src/main/app/helpers/files"
 
@@ -55,9 +55,9 @@ func init() {
 		compositeConfig = append(compositeConfig, sharedConfig)
 	}
 
-	err = archaius.Init(
-		archaius.WithENVSource(),
-		archaius.WithRequiredFiles(compositeConfig),
+	err = config.Init(
+		config.WithENVSource(),
+		config.WithRequiredFiles(compositeConfig),
 	)
 
 	if err != nil {
@@ -76,9 +76,9 @@ func showWd() {
 }
 
 func String(key string) string {
-	return archaius.GetString(key, "")
+	return config.GetString(key, "")
 }
 
 func Int(key string) int {
-	return archaius.GetInt(key, 0)
+	return config.GetInt(key, 0)
 }

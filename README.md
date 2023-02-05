@@ -64,22 +64,24 @@ func Run() error {
 		Swagger:   true,
 		RequestID: true,
 		Logger:    true,
+		NewRelic:  false,
 	})
 
 	pingService := services.NewPingService()
 	pingHandler := handlers.NewPingHandler(pingService)
 
-	server.RegisterHandler(pingHandler.Ping)
+	server.RegisterHandler(pingHandler)
+	server.Register(http.MethodGet, "/ping", server.Resolve[handlers.PingHandler]().Ping)
 
-	app.Add(http.MethodGet, "/ping", server.Use(handlers.PingHandler{}.Ping))
-
-	host := os.Getenv("HOST")
-	if host == "" {
+	host := config.String("HOST")
+	if env.IsEmpty(host) && !env.IsDev() {
+		host = "0.0.0.0"
+	} else {
 		host = "127.0.0.1"
 	}
 
-	port := os.Getenv("PORT")
-	if port == "" {
+	port := config.String("PORT")
+	if env.IsEmpty(port) {
 		port = "8080"
 	}
 
@@ -87,7 +89,8 @@ func Run() error {
 
 	log.Printf("Listening on port %s", port)
 	log.Printf("Open http://%s:%s/ping in the browser", host, port)
-	return app.Listen(address)
+
+	return app.Start(address)
 }
 ```
 
@@ -194,3 +197,57 @@ curl 'http://localhost:8080/ping' --verbose
 {"status_code":500,"message":"unhealthy instance"}
 ```
 
+## Configuration
+
+Environment configuration is based on **Archaius Config**, you should use a similar folder
+structure.
+*SCOPE* env variable in remote environment is required
+
+```
+└── config
+    ├── config.yml (shared config)
+    └── dev
+        └── config.yml (for local development)
+    └── prod (for remote environment)
+        └── config.yml (base config)
+        └── {environment}.config.yml (base config)
+```
+
+The SDK provides a simple configuration hierarchy
+
+* resources/config/config.properties (shared config)
+* resources/config/{environment}/config.properties (override shared config by environment)
+* resources/config/{environment}/{scope}.config.properties (override env and shared config by scope)
+
+example *test.pets-api.internal.com*
+
+```
+└── config
+    ├── config.yml                              3th (third)
+    └── dev
+        └── config.yml                          <ignored>
+    └── prod
+        └── config.yml (base config)            2nd (second)
+        └── test.config.yml (base config)       1st (first)
+```
+
+* 1st (first)   prod/test.config.yml
+* 2nd (second)  prod/config.yml
+* 3th (third)   config.yml
+
+```
+2022/11/20 13:24:26 INFO: Two files have same priority. keeping
+    /resources/config/prod/test.config.yml value
+2022/11/20 13:24:26 INFO: Configuration files:
+    /resources/config/prod/test.config.yml,
+    /resources/config/prod/config.yml,
+    /resources/config/config.yml
+2022/11/20 13:24:26 INFO: invoke dynamic handler:FileSource
+2022/11/20 13:24:26 INFO: enable env source
+2022/11/20 13:24:26 INFO: invoke dynamic handler:EnvironmentSource
+2022/11/20 13:24:26 INFO: archaius init success
+2022/11/20 13:24:26 INFO: ENV: prod, SCOPE: test
+2022/11/20 13:24:26 INFO: create new watcher
+2022/11/20 13:24:26 Listening on port 8080
+2022/11/20 13:24:26 Open http://127.0.0.1:8080/ping in the browser
+```

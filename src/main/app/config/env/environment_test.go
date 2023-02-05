@@ -38,6 +38,13 @@ func TestGetEnv_Custom(t *testing.T) {
 	assert.Equal(t, "staging", actual)
 }
 
+func TestGetEnv_Custom_(t *testing.T) {
+	t.Setenv("app_env", "staging")
+	actual := env.GetEnv()
+	assert.NotEmpty(t, actual)
+	assert.Equal(t, "staging", actual)
+}
+
 func TestGetEnv_Prod(t *testing.T) {
 	t.Setenv("SCOPE", "prod")
 	actual := env.GetEnv()
