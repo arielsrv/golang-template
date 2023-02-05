@@ -1,5 +1,5 @@
 # Compile stage
-FROM  golang:1.19-bullseye AS build
+FROM  golang:1.20-bullseye AS build
 
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
