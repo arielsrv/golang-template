@@ -3,7 +3,7 @@ module github.com
 go 1.19
 
 require (
-	github.com/arielsrv/nrfiber v0.0.2
+	github.com/arielsrv/nrfiber v0.0.3
 	github.com/go-chassis/go-archaius v1.5.6
 	github.com/gofiber/fiber/v2 v2.42.0
 	github.com/gofiber/swagger v0.1.9
