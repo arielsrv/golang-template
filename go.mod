@@ -10,7 +10,7 @@ require (
 	github.com/newrelic/go-agent/v3 v3.24.0
 	github.com/stretchr/testify v1.8.4
 	github.com/swaggo/swag v1.16.1
-	github.com/valyala/fasthttp v1.47.0
+	github.com/valyala/fasthttp v1.49.0
 )
 
 require (
