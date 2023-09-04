@@ -2,6 +2,8 @@ module github.com
 
 go 1.21
 
+toolchain go1.20.1
+
 require (
 	github.com/arielsrv/nrfiber v0.0.4
 	github.com/go-chassis/go-archaius v1.5.6
