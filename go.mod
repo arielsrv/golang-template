@@ -2,7 +2,7 @@ module github.com
 
 go 1.22
 
-gotoolchain go1.22.2
+toolchain go1.22.2
 
 require (
 	github.com/arielsrv/nrfiber v0.0.4
