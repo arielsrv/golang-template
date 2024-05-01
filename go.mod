@@ -9,7 +9,7 @@ require (
 	github.com/go-chassis/go-archaius v1.5.6
 	github.com/gofiber/fiber/v2 v2.49.1
 	github.com/gofiber/swagger v0.1.12
-	github.com/newrelic/go-agent/v3 v3.32.0
+	github.com/newrelic/go-agent/v3 v3.33.0
 	github.com/stretchr/testify v1.9.0
 	github.com/swaggo/swag v1.16.2
 	github.com/valyala/fasthttp v1.52.0
